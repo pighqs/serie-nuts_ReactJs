@@ -26133,7 +26133,7 @@ exports.default = Filter;
 
 
 Object.defineProperty(exports, "__esModule", {
-  value: true
+    value: true
 });
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -26157,39 +26157,59 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var NouveautesList = function (_React$Component) {
-  _inherits(NouveautesList, _React$Component);
+    _inherits(NouveautesList, _React$Component);
 
-  function NouveautesList() {
-    _classCallCheck(this, NouveautesList);
+    function NouveautesList() {
+        _classCallCheck(this, NouveautesList);
 
-    return _possibleConstructorReturn(this, (NouveautesList.__proto__ || Object.getPrototypeOf(NouveautesList)).call(this));
-  }
+        var _this = _possibleConstructorReturn(this, (NouveautesList.__proto__ || Object.getPrototypeOf(NouveautesList)).call(this));
 
-  _createClass(NouveautesList, [{
-    key: "render",
-    value: function render() {
-      var newSeries = [];
-      var returnSeriesFromAPI = [{ title: "Title1", desc: "Description1", img: "images/project1.jpg", link: "/" }, { title: "Title2", desc: "Description2", img: "images/project2.jpg", link: "/" }, { title: "Title3", desc: "Description3", img: "images/project3.jpg", link: "/" }, { title: "Title4", desc: "Description4", img: "images/project4.jpg", link: "/" }, { title: "Title5", desc: "Description5", img: "images/project5.jpg", link: "/" }, { title: "Title6", desc: "Description6", img: "images/project6.jpg", link: "/" }];
-
-      for (var i = 0; i < returnSeriesFromAPI.length; i++) {
-        newSeries.push(_react2.default.createElement(_NouveautesSingle2.default, {
-          title: returnSeriesFromAPI[i].title,
-          description: returnSeriesFromAPI[i].desc,
-          img: returnSeriesFromAPI[i].img,
-          link: returnSeriesFromAPI[i].link
-        }));
-      }
-
-      return _react2.default.createElement(
-        "ul",
-        { className: "row portfolio list-unstyled lightbox", id: "grid" },
-        newSeries,
-        _react2.default.createElement("li", { className: "col-xs-6 col-md-4 shuffle_sizer" })
-      );
+        _this.state = {
+            returnSeriesFromAPI: []
+        };
+        return _this;
     }
-  }]);
 
-  return NouveautesList;
+    _createClass(NouveautesList, [{
+        key: "componentDidMount",
+        value: function componentDidMount() {
+            var thisIsThis = this;
+            fetch("https://api.betaseries.com/shows/discover?key=d0c44a7cd167").then(function (response) {
+                return response.json();
+            }).then(function (datas) {
+                thisIsThis.setState({
+                    returnSeriesFromAPI: datas.shows
+                });
+            }).catch(function (error) {
+                return console.log("erreur fetch NouveautesList !!!" + error);
+            });
+        }
+    }, {
+        key: "render",
+        value: function render() {
+            var newSeries = [];
+            var lengthStateDatas;
+            this.state.returnSeriesFromAPI.length > 9 ? lengthStateDatas = 9 : lengthStateDatas = this.state.returnSeriesFromAPI.length;
+            for (var i = 0; i < lengthStateDatas; i++) {
+                newSeries.push(_react2.default.createElement(_NouveautesSingle2.default, {
+                    title: this.state.returnSeriesFromAPI[i].title,
+                    description: this.state.returnSeriesFromAPI[i].description,
+                    img: this.state.returnSeriesFromAPI[i].images.poster,
+                    link: "/",
+                    key: i
+                }));
+            }
+
+            return _react2.default.createElement(
+                "ul",
+                { className: "row portfolio list-unstyled lightbox", id: "grid" },
+                newSeries,
+                _react2.default.createElement("li", { className: "col-xs-6 col-md-4 shuffle_sizer" })
+            );
+        }
+    }]);
+
+    return NouveautesList;
 }(_react2.default.Component);
 
 exports.default = NouveautesList;

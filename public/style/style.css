@@ -1,7 +1,7 @@
 /* Base CSS */
 body {
   color: #666666;
-  background: #fefefe;
+  background: #f8f8ff;
   font-family: "Raleway", sans-serif;
   font-weight: 400;
   font-size: 14px;
@@ -1857,7 +1857,7 @@ table > thead > tr > th, table > thead > tr > td, table > tbody > tr > th, table
 }
 
 .banner-info {
-  background: rgba(255, 255, 255, 0.75);
+  background: rgba(255, 255, 255, 0.5);
   width: 400px;
   margin: 0 auto;
   padding: 50px 0;
@@ -2003,8 +2003,8 @@ table > thead > tr > th, table > thead > tr > td, table > tbody > tr > th, table
 .project-hover-tools {
   position: absolute;
   z-index: 2;
-  bottom: 46%;
-  right: 36%;
+  top: 45%;
+  left: 44%;
   text-align: center;
   visibility: hidden;
   opacity: 0;
@@ -2015,8 +2015,9 @@ table > thead > tr > th, table > thead > tr > td, table > tbody > tr > th, table
 }
 
 .project:hover .project-hover-tools {
-  bottom: 43%;
-  right: 36%;
+  position: absolute;
+  top: 45%;
+  left: 44%;
   text-align: center;
   visibility: visible;
   opacity: 1;
@@ -2143,6 +2144,12 @@ table > thead > tr > th, table > thead > tr > td, table > tbody > tr > th, table
   font-size: 10px;
   font-weight: 700;
   letter-spacing: 0.1em;
+  width:90%;
+ overflow: hidden;
+  text-overflow: ellipsis;
+  max-height:100px;
+  max-width:90%;
+
 }
 
 .mfp-arrow {
