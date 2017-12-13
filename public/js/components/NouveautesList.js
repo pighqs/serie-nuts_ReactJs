@@ -13,7 +13,8 @@ class NouveautesList extends React.Component {
 
   componentDidMount() {
       var thisIsThis = this;
-      fetch("https://api.betaseries.com/shows/discover?key=d0c44a7cd167")
+      var limitResults = 30;
+      fetch("https://api.betaseries.com/shows/list?key=d0c44a7cd167&order=followers&limit="+limitResults)
         .then(response => response.json())
         .then(function(datas) {
             thisIsThis.setState({

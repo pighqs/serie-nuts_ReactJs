@@ -25828,7 +25828,7 @@ var Navbar = function (_React$Component) {
             _react2.default.createElement(
               "a",
               { className: "navbar-brand", href: "index.html" },
-              _react2.default.createElement("img", { src: "images/logo.png", alt: "logo" })
+              _react2.default.createElement("img", { src: "images/peanut_gold.png", alt: "logo" })
             )
           ),
           _react2.default.createElement(
@@ -26174,7 +26174,8 @@ var NouveautesList = function (_React$Component) {
         key: "componentDidMount",
         value: function componentDidMount() {
             var thisIsThis = this;
-            fetch("https://api.betaseries.com/shows/discover?key=d0c44a7cd167").then(function (response) {
+            var limitResults = 30;
+            fetch("https://api.betaseries.com/shows/list?key=d0c44a7cd167&order=followers&limit=" + limitResults).then(function (response) {
                 return response.json();
             }).then(function (datas) {
                 thisIsThis.setState({
