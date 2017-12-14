@@ -4,7 +4,7 @@ import ReactDOM from 'react-dom';
 
 //Initialisation de Redux
 import { Provider } from 'react-redux';
-import { createStore } from 'redux'
+import { createStore, combineReducers } from 'redux';
 
 // initialisation Router
 import { BrowserRouter } from 'react-router-dom';
@@ -13,16 +13,12 @@ import RoutesList from './js/components/routesList';
 
 import Home from './js/components/Home';
 
+import searchRequest from './js/reducers/search.reducer';
 
-function Reducer(state, action) {
-  if(action.type == 'yolo') {
-      console.log("yolo")
-  } else {
-    console.log("else")
-  }
-}
+const globalReducers = combineReducers({searchRequest});
 
-const store = createStore(Reducer);
+
+const store = createStore(globalReducers, {searchRequest: ""} );
 
 ReactDOM.render(
   <Provider store={store}>

@@ -3,6 +3,9 @@ import { Link } from "react-router-dom";
 
 import Filter from "./Filter";
 import NouveautesList from "./NouveautesList";
+import SearchResultsList from "./SearchResultsList";
+
+
 
 
 class Nouveautes extends React.Component {
@@ -16,7 +19,9 @@ class Nouveautes extends React.Component {
         <div className="container">
 
         <Filter/>
-        <NouveautesList/>
+        {/* <NouveautesList/> */}
+        <SearchResultsList/>
+
 
         </div>
       </section>

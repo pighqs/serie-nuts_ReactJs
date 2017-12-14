@@ -1,33 +1,45 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { connect } from'react-redux';
 
 import { FormControl } from 'react-bootstrap';
 
+
+
 class SearchNavbar extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.onSearchInputChange = this.onSearchInputChange.bind(this);
+    this.test = this.test.bind(this);
+    
     this.state = {
       value: ""
     }
   }
 
+  test() {
+    this.props.onSearchClick(this.state.value);
+  }
+
   onSearchInputChange(e) {
-    console.log(e.target.value);
     this.setState({ value: e.target.value });
   }
 
   render() {
     return (
-      <div className="input-group">
+      <div className="input-group btn-pill">
         <FormControl
           type="text"
           value={this.state.value}
           placeholder="browse serie"
           onChange={this.onSearchInputChange}
         />
-        <span className="input-group-btn"><button className="btn btn-warning btn-pill">
-          <i className="fa fa-search" />
+        <span className="input-group-btn">
+          <button 
+          className="btn btn-warning btn-pill" 
+          onClick={this.test}
+          >
+            <i className="fa fa-search" />
         </button>
         </span>
       </div>
@@ -35,4 +47,18 @@ class SearchNavbar extends React.Component {
   }
 }
 
-export default SearchNavbar;
+function mapDispatchToProps(dispatch, props) {
+  return {
+    onSearchClick: function(recu) { 
+      console.log(recu);
+        //dispatch( {type: 'search', searchValue : this.state.value } ) 
+    }
+  }
+}
+
+var SearchNavbarRedux = connect(
+  null,
+  mapDispatchToProps
+)(SearchNavbar);
+
+export default SearchNavbarRedux;
