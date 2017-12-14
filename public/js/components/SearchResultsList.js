@@ -18,7 +18,7 @@ class SearchResultsList extends React.Component {
     var userSearch = this.props.userSearch.searchRequest;
     console.log(userSearch);
     fetch(
-      "https://api.betaseries.com/shows/list?key=d0c44a7cd167&id=8847&starting=" +
+      "https://api.betaseries.com/shows/list?key=d0c44a7cd167&id=8847&order=followers&starting=" +
         userSearch
     )
       .then(response => response.json())

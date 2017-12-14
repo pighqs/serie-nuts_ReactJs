@@ -2928,6 +2928,23 @@ table > thead > tr > th, table > thead > tr > td, table > tbody > tr > th, table
   appearance: none;
 }
 
+.form-control.navbarSearchInput {
+  border-radius: 50px !important;
+  width: 300px;
+  width: 200px;
+  position: absolute;
+  top: 0;
+  right: 70px;
+  
+}
+
+.input-group {
+  z-index:70;
+  position: absolute;
+  top: 15px;
+  right: 20px;
+}
+
 #contactForm .form-control {
   color: #666666;
   background: #f8f8f8;

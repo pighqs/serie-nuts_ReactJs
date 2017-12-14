@@ -29,11 +29,18 @@ class NouveautesList extends React.Component {
     var lengthStateDatas;
     (this.state.returnSeriesFromAPI.length > 9)? lengthStateDatas = 9 : lengthStateDatas = this.state.returnSeriesFromAPI.length;
     for (var i = 0; i < lengthStateDatas; i++) {
+        var poster;
+        if (this.state.returnSeriesFromAPI[i].images.poster != undefined) {
+            poster = this.state.returnSeriesFromAPI[i].images.poster
+        } else {
+            poster= "./images/default-poster.jpg";
+        }
+
         newSeries.push(
             <NouveautesSingle 
                 title = { this.state.returnSeriesFromAPI[i].title }
                 description = { this.state.returnSeriesFromAPI[i].description }
-                img = { this.state.returnSeriesFromAPI[i].images.poster }
+                img = {poster}
                 link = "/"
                 key = {i}
             />
