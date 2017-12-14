@@ -36,10 +36,10 @@ class Navbar extends React.Component {
               <span className="icon-bar" />
               <span className="icon-bar" />
             </button>
-            <a className="navbar-brand" href="index.html">
+            <Link to="/" className="navbar-brand">
               <img src="images/peanut_gold.png" alt="logo" />
               
-            </a>
+            </Link>
           </div>
           <div className="navbar-collapse collapse">
             <ul className="nav navbar-nav">
@@ -47,7 +47,7 @@ class Navbar extends React.Component {
                 <Link to="/">HOME</Link>
               </li>
               <li>
-                <Link to="/about">ABOUT</Link>
+                <Link to="/affichageseriesingle">ABOUT</Link>
               </li>
               <li>
                 <Link to="/">CONTACT</Link>
