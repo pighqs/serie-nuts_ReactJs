@@ -23,6 +23,10 @@ class SerieSingle extends React.Component {
   }
 
   render() {
+    if (this.state.returnSeriesFromAPI.seasons_details != undefined){
+           var myseasons = this.state.returnSeriesFromAPI.seasons_details.map(x => <li>{x.number}</li>);
+  }
+
     var categs = this.state.returnSeriesFromAPI.genres;
     if (categs != undefined) {
       var categs = categs.join(" - ");
@@ -48,7 +52,9 @@ class SerieSingle extends React.Component {
                 <h4>
                   Total Seasons : {this.state.returnSeriesFromAPI.seasons}{" "}
                 </h4>
-                <p>caca</p>
+                <ul>
+                <li>{myseasons}</li>
+                </ul>
               </div>
             </div>
 
