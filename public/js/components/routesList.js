@@ -2,7 +2,7 @@ import React from 'react';
 import { Route } from 'react-router-dom';
 
 import Home from './Home';
-import Other from './Other';
+import About from './About';
 
 
 class RoutesList extends React.Component {
@@ -14,7 +14,7 @@ class RoutesList extends React.Component {
     return (
       <div>
         <Route exact path="/" component={Home} />
-        <Route path="/other" component={Other} />
+        <Route path="/about" component={About} />
       </div>
     );
   }

@@ -12,7 +12,6 @@ import { BrowserRouter } from 'react-router-dom';
 import RoutesList from './js/components/routesList';
 
 import Home from './js/components/Home';
-import Other from './js/components/Other';
 
 
 function Reducer(state, action) {
