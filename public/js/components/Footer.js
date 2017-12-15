@@ -15,9 +15,9 @@ class Footer extends React.Component {
     <div className="container">
         <p className="footer-info">© LES COWBOYS
             <span className="social pull-right">
-            <Link to="/"><i className="fa fa-facebook"></i></Link>
-                <Link to="/"><i className="fa fa-twitter"></i></Link>
-                <Link to="/"><i className="fa fa-instagram"></i></Link>
+            <a target="_blank" href="https://www.facebook.com"><i className="fa fa-facebook"></i></a>
+                <a target="_blank" href="https://www.twitter.com"><i className="fa fa-twitter"></i></a>
+                <a target="_blank" href="https://www.instagram.com"><i className="fa fa-instagram"></i></a>
             </span>
         </p>
     </div>
