@@ -41,8 +41,9 @@ class NouveautesList extends React.Component {
                 title = { this.state.returnSeriesFromAPI[i].title }
                 description = { this.state.returnSeriesFromAPI[i].description }
                 img = {poster}
-                link = "/"
-                key = {this.state.returnSeriesFromAPI[i].id}
+                link = "/affichageseriesingle"
+                idserie = {this.state.returnSeriesFromAPI[i].id}
+                key = {i}
             />
         );
     }

@@ -14,11 +14,12 @@ import RoutesList from './js/components/routesList';
 import Home from './js/components/Home';
 
 import searchRequest from './js/reducers/search.reducer';
+import selectedSerie from './js/reducers/selectedserie.reducer';
 
-const globalReducers = combineReducers({searchRequest});
+const globalReducers = combineReducers({searchRequest, selectedSerie});
 
 
-const store = createStore(globalReducers, {searchRequest: ""} );
+const store = createStore(globalReducers, {searchRequest: "", selectedSerie: "1161"} );
 
 ReactDOM.render(
   <Provider store={store}>

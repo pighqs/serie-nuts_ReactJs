@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { connect } from "react-redux";
 
 class SerieSingle extends React.Component {
   constructor() {
@@ -11,10 +12,13 @@ class SerieSingle extends React.Component {
 
   componentDidMount() {
     var thisIsThis = this;
-    fetch("https://api.betaseries.com/shows/display?key=d0c44a7cd167&id=1161")
+    fetch(
+      `https://api.betaseries.com/shows/display?key=d0c44a7cd167&id=${
+        thisIsThis.props.selectedSerie
+      }`
+    )
       .then(response => response.json())
       .then(function(datas) {
-        console.log(datas);
         thisIsThis.setState({
           returnSeriesFromAPI: datas.show
         });
@@ -23,9 +27,11 @@ class SerieSingle extends React.Component {
   }
 
   render() {
-    if (this.state.returnSeriesFromAPI.seasons_details != undefined){
-           var myseasons = this.state.returnSeriesFromAPI.seasons_details.map(x => <li>{x.number}</li>);
-  }
+    if (this.state.returnSeriesFromAPI.seasons_details != undefined) {
+      var myseasons = this.state.returnSeriesFromAPI.seasons_details.map(x => (
+        <li>{x.number}</li>
+      ));
+    }
 
     var categs = this.state.returnSeriesFromAPI.genres;
     if (categs != undefined) {
@@ -34,17 +40,20 @@ class SerieSingle extends React.Component {
         this.state.returnSeriesFromAPI.title
       }`;
     }
+
+    if (this.state.returnSeriesFromAPI.images) {
+      var imagesingle = this.state.returnSeriesFromAPI.images.show;
+    } else {
+      var imagesingle = "./images/default-poster.jpg";
+    }
+
     return (
       <div id="page-content" className="container">
         <section id="project">
           <div className="row">
             <div className="col-sm-7">
               <div className="project-content-area">
-                <img
-                  src="https://www.betaseries.com/images/fonds/show/1161_1212974.jpg"
-                  alt=""
-                  className="space-bottom-30"
-                />
+                <img src={imagesingle} alt="" className="space-bottom-30" />
                 <h4>Overview</h4>
                 <p>{this.state.returnSeriesFromAPI.description}</p>
                 <br />
@@ -53,7 +62,7 @@ class SerieSingle extends React.Component {
                   Total Seasons : {this.state.returnSeriesFromAPI.seasons}{" "}
                 </h4>
                 <ul>
-                <li>{myseasons}</li>
+                  <li>{myseasons}</li>
                 </ul>
               </div>
             </div>
@@ -68,21 +77,22 @@ class SerieSingle extends React.Component {
                     <p>
                       <i className="lnr lnr-user" />
                       <span>
-                        Provider: {this.state.returnSeriesFromAPI.network}
+                        <strong>Provider:</strong>{" "}
+                        {this.state.returnSeriesFromAPI.network}
                       </span>
                     </p>
                   </div>
                   <div className="info">
                     <p>
                       <i className="lnr lnr-star" />
-                      <span>Category: {categs}</span>
+                      <span> <strong>Category:</strong> {categs}</span>
                     </p>
                   </div>
                   <div className="info">
                     <p>
                       <i className="lnr lnr-calendar-full" />
                       <span>
-                        First airtime: {this.state.returnSeriesFromAPI.creation}
+                        <strong>First airtime:</strong> {this.state.returnSeriesFromAPI.creation}
                       </span>
                     </p>
                   </div>
@@ -90,7 +100,7 @@ class SerieSingle extends React.Component {
                     <p>
                       <i className="lnr lnr-map" />
                       <span>
-                        Status: {this.state.returnSeriesFromAPI.status}
+                        <strong>Status:</strong> {this.state.returnSeriesFromAPI.status}
                       </span>
                     </p>
                   </div>
@@ -119,4 +129,11 @@ class SerieSingle extends React.Component {
   }
 }
 
-export default SerieSingle;
+function mapStateToProps(state) {
+  //console.log(state.searchRequest);
+  return { selectedSerie: state.selectedSerie };
+}
+
+var SerieSingleRedux = connect(mapStateToProps, null)(SerieSingle);
+
+export default SerieSingleRedux;
