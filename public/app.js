@@ -14,11 +14,13 @@ import RoutesList from './js/components/routesList';
 import Home from './js/components/Home';
 
 import searchRequest from './js/reducers/search.reducer';
+import activeFilter from './js/reducers/filter.reducer';
 
-const globalReducers = combineReducers({searchRequest});
+
+const globalReducers = combineReducers({searchRequest, activeFilter});
 
 
-const store = createStore(globalReducers, {searchRequest: ""} );
+const store = createStore(globalReducers);
 
 ReactDOM.render(
   <Provider store={store}>

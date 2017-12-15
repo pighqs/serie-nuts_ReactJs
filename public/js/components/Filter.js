@@ -1,44 +1,74 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
+import { connect } from "react-redux";
+
+
 
 class Filter extends React.Component {
 
     constructor() {
         super();
+        this.filterOnclick = this.filterOnclick.bind(this);
+        //this.state = { activeFilter : "all" };
+    }
+
+    filterOnclick(e) {
+      this.props.filterOnclick(e.target.textContent.toLowerCase());
+      this.setState({
+        activeFilter: e.target.textContent.toLowerCase()
+      });
     }
 
   render() {
     return (
         <ul className="portfolio-filter list-inline text-center">
-            <li>
-              <a href="index.html#" data-group="all" className="active">
+            <li
+            className="filter"
+            onClick={this.filterOnclick}>           
                 ALL
-              </a>
             </li>
-            <li>
-              <a href="index.html#" data-group="graphic-design">
-                ACTION
-              </a>
-            </li>
-            <li>
-              <a href="index.html#" data-group="branding">
+            <li
+            className="filter"
+            onClick={this.filterOnclick}>
                 DRAMA
-              </a>
             </li>
-            <li>
-              <a href="index.html#" data-group="logo-design">
-                GIRLY
-              </a>
+            <li
+            className="filter"
+            onClick={this.filterOnclick}>
+                COMEDY
             </li>
-            <li>
-              <a href="index.html#" data-group="illustration">
-                HUMOR
-              </a>
+            <li
+            className="filter"
+            onClick={this.filterOnclick}>
+                ADVENTURE
+            </li>
+            <li
+            className="filter"
+            onClick={this.filterOnclick}>
+                ROMANCE
+            </li>
+            <li
+            className="filter"
+            onClick={this.filterOnclick}>
+                CRIME
             </li>
           </ul>
     );
   }
 }
+function mapDispatchToProps(dispatch, props) {
+  return {
+    filterOnclick: function(value) {
+      dispatch({ type: "filter", activeFilter: value });
+    }
+  };
+}
 
-export default Filter;
+function mapStateToProps(state) {
+  return { activeFilter: state.activeFilter };
+}
+
+var FilterRedux = connect(mapStateToProps, mapDispatchToProps)(Filter);
+
+export default FilterRedux;

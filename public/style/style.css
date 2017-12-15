@@ -1976,24 +1976,25 @@ table > thead > tr > th, table > thead > tr > td, table > tbody > tr > th, table
   padding: 0;
 }
 
-.portfolio-filter a {
+.filter {
   color: #666666;
   font-size: 12px;
   font-weight: 700;
   letter-spacing: 0.1em;
   line-height: 40px;
   border: 2px solid transparent;
-  margin: 0 5px;
+  margin: 0 15px;
   padding: 10px 8px;
+  cursor: pointer;
 }
 
-.portfolio-filter a.active {
+.filter .active {
   color: #c39d6d;
   background-color: transparent;
   border: 2px solid transparent;
 }
 
-.portfolio-filter a:hover {
+.filter:hover {
   color: #c39d6d;
   background-color: transparent;
   border: 2px solid transparent;
