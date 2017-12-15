@@ -45,7 +45,7 @@ class SerieSingle extends React.Component {
     if (this.state.returnSeriesFromAPI.images) {
       var imagesingle = this.state.returnSeriesFromAPI.images.show;
     } else {
-      var imagesingle = "./images/default-poster.jpg";
+      var imagesingle = "./images/default-poster-white.jpg";
     }
 
     return (
