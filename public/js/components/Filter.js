@@ -18,22 +18,22 @@ class Filter extends React.Component {
             </li>
             <li>
               <a href="index.html#" data-group="graphic-design">
-                GRAPHIC DESIGN
+                ACTION
               </a>
             </li>
             <li>
               <a href="index.html#" data-group="branding">
-                BRANDING
+                DRAMA
               </a>
             </li>
             <li>
               <a href="index.html#" data-group="logo-design">
-                LOGO DESIGN
+                GIRLY
               </a>
             </li>
             <li>
               <a href="index.html#" data-group="illustration">
-                ILLUSTRATION
+                HUMOR
               </a>
             </li>
           </ul>

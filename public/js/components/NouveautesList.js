@@ -42,7 +42,7 @@ class NouveautesList extends React.Component {
                 description = { this.state.returnSeriesFromAPI[i].description }
                 img = {poster}
                 link = "/"
-                key = {i}
+                key = {this.state.returnSeriesFromAPI[i].id}
             />
         );
     }
