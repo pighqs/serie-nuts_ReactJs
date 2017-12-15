@@ -1472,6 +1472,10 @@ table > thead > tr > th, table > thead > tr > td, table > tbody > tr > th, table
   padding-right: 0;
 }
 
+.navbar-nav.menu-home {
+  z-index: 100 !important
+}
+
 .navbar-nav > li > a {
   line-height: 80px;
   padding: 0 15px !important;
@@ -2932,7 +2936,7 @@ table > thead > tr > th, table > thead > tr > td, table > tbody > tr > th, table
 .form-control.navbarSearchInput {
   border-radius: 50px !important;
   width: 300px;
-  width: 200px;
+  width: 180px;
   position: absolute;
   top: 0;
   right: 70px;
@@ -2944,6 +2948,7 @@ table > thead > tr > th, table > thead > tr > td, table > tbody > tr > th, table
   position: absolute;
   top: 15px;
   right: 20px;
+  width:250px;
 }
 
 #contactForm .form-control {
