@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
+import SerieSingleAccordion from "./SerieSingleAccordion";
 
 class SerieSingle extends React.Component {
   constructor() {
@@ -107,7 +108,7 @@ class SerieSingle extends React.Component {
                 </div>
 
                 <div className="info-buttons">
-                  <a href={urlstreaming} className="btn btn-primary-filled">
+                  <a href={urlstreaming} target="_blank" className="btn btn-primary-filled">
                     <i className="lnr lnr-eye" />
                     <span> Watch Now</span>
                   </a>
@@ -117,6 +118,9 @@ class SerieSingle extends React.Component {
               </div>
             </div>
           </div>
+          <SerieSingleAccordion
+          content={this.state.returnSeriesFromAPI.seasons_details}
+          />
         </section>
         {/* 
   Partie qui permet de naviguer entre les singles (difficile à appliquer, à voir) */}

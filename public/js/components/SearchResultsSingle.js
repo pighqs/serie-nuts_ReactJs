@@ -10,7 +10,6 @@ class SearchResultsSingle extends React.Component {
     }
 
     onClickMovetoSingle() {
-      console.log(this.props.idserie);
       // envoie du state à fonction onSearchClick du container redux
       this.props.onClickMovetoSingle(this.props.idserie);
     }
@@ -46,7 +45,6 @@ class SearchResultsSingle extends React.Component {
 function mapDispatchToProps(dispatch, props) {
   return {
     onClickMovetoSingle: function(value) {
-      console.log(value);
       dispatch({ type: "clickOnSingle", selectedSerie: value });
     }
   };
