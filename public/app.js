@@ -15,12 +15,13 @@ import Home from './js/components/Home';
 
 import searchRequest from './js/reducers/search.reducer';
 import activeFilter from './js/reducers/filter.reducer';
+import selectedSerie from './js/reducers/selectedserie.reducer';
+
+const globalReducers = combineReducers({searchRequest, selectedSerie, activeFilter});
 
 
-const globalReducers = combineReducers({searchRequest, activeFilter});
 
-
-const store = createStore(globalReducers);
+const store = createStore(globalReducers, {selectedSerie: "1161"} );
 
 ReactDOM.render(
   <Provider store={store}>

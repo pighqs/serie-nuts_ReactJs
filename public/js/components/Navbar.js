@@ -47,7 +47,7 @@ class Navbar extends React.Component {
                 <Link to="/">HOME</Link>
               </li>
               <li>
-                <Link to="/affichageseriesingle">ABOUT</Link>
+                <Link to="/">ABOUT</Link>
               </li>
               <li>
                 <Link to="/">CONTACT</Link>

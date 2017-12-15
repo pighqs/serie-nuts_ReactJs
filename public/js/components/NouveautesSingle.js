@@ -1,12 +1,20 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-
+import { connect } from "react-redux";
 
 class NouveautesSingle extends React.Component {
 
     constructor() {
         super();
+        this.onClickMovetoSingle = this.onClickMovetoSingle.bind(this);
     }
+
+    onClickMovetoSingle() {
+      console.log(this.props.idserie);
+      // envoie du state à fonction onSearchClick du container redux
+      this.props.onClickMovetoSingle(this.props.idserie);
+    }
+
 
   render() {
     return (
@@ -19,7 +27,7 @@ class NouveautesSingle extends React.Component {
 
             <img src={this.props.img} alt="" />
 
-            <div className="project-hover-tools">
+            <div className="project-hover-tools" onClick={this.onClickMovetoSingle}>
               <Link to={this.props.link} className="view-btn">
                 <i className="lnr lnr-eye" />
               </Link>
@@ -36,4 +44,15 @@ class NouveautesSingle extends React.Component {
   }
 }
 
-export default NouveautesSingle;
+function mapDispatchToProps(dispatch, props) {
+  return {
+    onClickMovetoSingle: function(value) {
+      console.log(value);
+      dispatch({ type: "clickOnSingle", selectedSerie: value });
+    }
+  };
+}
+
+var NouveautesSingleRedux = connect(null, mapDispatchToProps)(NouveautesSingle);
+
+export default NouveautesSingleRedux;
