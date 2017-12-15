@@ -10,50 +10,42 @@ class Filter extends React.Component {
     constructor() {
         super();
         this.filterOnclick = this.filterOnclick.bind(this);
-        //this.state = { activeFilter : "all" };
+        this.state ={
+          activeFilter : "all"
+        } 
     }
 
     filterOnclick(e) {
       this.props.filterOnclick(e.target.textContent.toLowerCase());
       this.setState({
-        activeFilter: e.target.textContent.toLowerCase()
+        activeFilter: e.target.textContent.toLowerCase(),
       });
     }
 
   render() {
+    var categories = ["ALL", "DRAMA", "COMEDY", "ADVENTURE", "ROMANCE", "CRIME"];
+    var filters = [];
+    var classes;
+    for (var i = 0; i < categories.length; i++) {
+      if(categories[i].toLowerCase() === this.state.activeFilter) {
+        classes = "filter active";
+      } else {
+        classes = "filter";
+      }
+      filters.push(
+      <li
+      className={classes}
+      onClick={this.filterOnclick}>           
+          {categories[i]}
+      </li>
+      );
+
+
+      }
     return (
         <ul className="portfolio-filter list-inline text-center">
-            <li
-            className="filter"
-            onClick={this.filterOnclick}>           
-                ALL
-            </li>
-            <li
-            className="filter"
-            onClick={this.filterOnclick}>
-                DRAMA
-            </li>
-            <li
-            className="filter"
-            onClick={this.filterOnclick}>
-                COMEDY
-            </li>
-            <li
-            className="filter"
-            onClick={this.filterOnclick}>
-                ADVENTURE
-            </li>
-            <li
-            className="filter"
-            onClick={this.filterOnclick}>
-                ROMANCE
-            </li>
-            <li
-            className="filter"
-            onClick={this.filterOnclick}>
-                CRIME
-            </li>
-          </ul>
+          {filters}
+        </ul>
     );
   }
 }

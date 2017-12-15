@@ -1988,7 +1988,7 @@ table > thead > tr > th, table > thead > tr > td, table > tbody > tr > th, table
   cursor: pointer;
 }
 
-.filter .active {
+.filter.active {
   color: #c39d6d;
   background-color: transparent;
   border: 2px solid transparent;
