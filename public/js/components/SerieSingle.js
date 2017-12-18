@@ -42,7 +42,6 @@ class SerieSingle extends React.Component {
     } else {
       var imagesingle = "./images/default-poster-white.jpg";
     }
-      console.log(this.state.returnSeriesFromAPI.seasons_details);
     return (
       <div id="page-content" className="container">
         <section id="project">
@@ -126,7 +125,6 @@ class SerieSingle extends React.Component {
 }
 
 function mapStateToProps(state) {
-  //console.log(state.searchRequest);
   return { selectedSerie: state.selectedSerie };
 }
 
