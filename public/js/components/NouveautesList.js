@@ -29,8 +29,6 @@ class NouveautesList extends React.Component {
 
   render() {
     var filter = this.props.activeFilter.activeFilter;
-    console.log(filter);
-
     var newSeries = [];
     var lengthStateDatas;
 

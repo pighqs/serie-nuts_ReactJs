@@ -17,8 +17,6 @@ class SerieSeasons extends React.Component {
   }
 
   render() {
-    console.log(this.props.content);
-
     return (
       <div className="col-sm-6">
         <h4 className="sub-title">&nbsp;</h4>

@@ -11,7 +11,6 @@ class SerieSeasonsAccordion extends React.Component {
   }
 
   toggleAccordion() {
-    console.log("click");
     this.setState({
       isOpen: this.state.isOpen ? false : true
     });
@@ -26,7 +25,6 @@ class SerieSeasonsAccordion extends React.Component {
   }
 
   render() {
-    console.log(this.state.isOpen);
     const { season } = this.props;
     return (
       <div key={season.number} className="panel">
@@ -52,7 +50,6 @@ class SerieSeasonsAccordion extends React.Component {
 }
 
 function mapStateToProps(state) {
-  //console.log(state.searchRequest);
   return { selectedSerie: state.selectedSerie };
 }
 
