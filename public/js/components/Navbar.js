@@ -14,7 +14,6 @@ class Navbar extends React.Component {
 
   searchOnclick() {
     this.state.searchIsON === true ? this.setState({ searchIsON: false}) : this.setState({ searchIsON: true}) ;  
-    console.log(this.state.searchIsON);
   }
 
 
