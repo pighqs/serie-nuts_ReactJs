@@ -1472,10 +1472,6 @@ table > thead > tr > th, table > thead > tr > td, table > tbody > tr > th, table
   padding-right: 0;
 }
 
-.navbar-nav.menu-home {
-  z-index: 100 !important
-}
-
 .navbar-nav > li > a {
   line-height: 80px;
   padding: 0 15px !important;
@@ -1861,8 +1857,8 @@ table > thead > tr > th, table > thead > tr > td, table > tbody > tr > th, table
 }
 
 .banner-info {
-  background: rgba(255, 255, 255, 0.5);
-  width: 400px;
+  /* background: rgba(255, 255, 255, 0.5); */
+  /* width: 400px; */
   margin: 0 auto;
   padding: 50px 0;
 }
@@ -1876,12 +1872,18 @@ table > thead > tr > th, table > thead > tr > td, table > tbody > tr > th, table
 }
 
 .banner-info h1 {
-  font-size: 24px;
+
+  font-size: 90px;
   margin-bottom: 10px;
+  color: white;
+  text-shadow: 1px 1px 1px #be9e73;
 }
 
 .banner-info p {
   margin-bottom: 0;
+  font-size: 24px;
+  color: #be9e73;
+  text-shadow: 1px 1px 1px white;
 }
 
 /* End Banners */
@@ -2936,7 +2938,7 @@ table > thead > tr > th, table > thead > tr > td, table > tbody > tr > th, table
 .form-control.navbarSearchInput {
   border-radius: 50px !important;
   width: 300px;
-  width: 180px;
+  width: 200px;
   position: absolute;
   top: 0;
   right: 70px;
@@ -2948,7 +2950,6 @@ table > thead > tr > th, table > thead > tr > td, table > tbody > tr > th, table
   position: absolute;
   top: 15px;
   right: 20px;
-  width:250px;
 }
 
 #contactForm .form-control {
