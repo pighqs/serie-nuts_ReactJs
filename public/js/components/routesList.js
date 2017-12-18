@@ -5,7 +5,7 @@ import Home from './Home';
 import About from './About';
 import AffichageSerieSingle from './AffichageSerieSingle';
 import SearchResults from './SearchResults';
-
+import Contact from "./Contact";
 
 
 class RoutesList extends React.Component {
