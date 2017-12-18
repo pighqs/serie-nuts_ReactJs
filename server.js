@@ -1,6 +1,11 @@
 var express   = require('express');
 var app = express();
-
+var bodyParser = require("body-parser");
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+/* var Trello = require("trello");
+var trello = new Trello("9603bc7c9a3c59641cbd504787ab613e", "7df626b71b4cb849b6d1f70ef7dc890d72d1c84eb054cd4c6fb509fdc5981515");
+ */
 app.set('view engine', 'ejs');
 app.use(express.static('public'));
 
@@ -10,7 +15,14 @@ app.get('/', function(req, res) {
   res.render('index');
 });
 
-
+app.post("/contact", function(req, res) {
+   /*  trello.addCard(req.body.firstname +" "+ req.body.lastname, req.body.mess +" "+ req.body.email, "5a09a44b26ae08022ce6f477",
+        function (error, trelloCard) {
+        }); */
+  JSON.parse(req);
+  console.log(req);
+  res.send("ok");
+});
 
 var port = process.env["PORT"] || 8080;
 

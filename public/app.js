@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+var formReducer = require('redux-form').reducer;
 
 
 //Initialisation de Redux
@@ -17,7 +18,7 @@ import searchRequest from './js/reducers/search.reducer';
 import activeFilter from './js/reducers/filter.reducer';
 import selectedSerie from './js/reducers/selectedserie.reducer';
 
-const globalReducers = combineReducers({searchRequest, selectedSerie, activeFilter});
+const globalReducers = combineReducers({searchRequest, selectedSerie, activeFilter, form: formReducer});
 
 
 

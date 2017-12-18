@@ -5,7 +5,7 @@ import Home from './Home';
 import About from './About';
 import AffichageSerieSingle from './AffichageSerieSingle';
 import SearchResults from './SearchResults';
-import Contact from "./Contact";
+import AffichageContact from "./AffichageContact";
 
 
 class RoutesList extends React.Component {
@@ -20,7 +20,7 @@ class RoutesList extends React.Component {
         <Route path="/about" component={About} />
         <Route path="/affichageseriesingle" component={AffichageSerieSingle}/>
         <Route path="/searchresults" component={SearchResults}/>
-        <Route path="/contact" component={Contact}/>
+        <Route path="/contact" component={AffichageContact}/>
       </div>
     );
   }
