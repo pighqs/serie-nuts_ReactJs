@@ -2,8 +2,8 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 import Contact from "./Contact";
-import Navbar from "./Navbar";
-import Footer from "./Footer";
+import Navbar from "../Header/Navbar";
+import Footer from "../Footer";
 
 class AffichageContact extends React.Component {
   constructor() {

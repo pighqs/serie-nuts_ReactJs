@@ -2,10 +2,10 @@ import React from 'react';
 import { Route } from 'react-router-dom';
 
 import Home from './Home';
-import About from './About';
-import AffichageSerieSingle from './AffichageSerieSingle';
-import SearchResults from './SearchResults';
-import AffichageContact from "./AffichageContact";
+import About from './About/About';
+import AffichageSerieSingle from './Single/AffichageSerieSingle';
+import SearchResults from './SearchResults/SearchResults';
+import AffichageContact from "./Contact/AffichageContact";
 
 
 class RoutesList extends React.Component {
