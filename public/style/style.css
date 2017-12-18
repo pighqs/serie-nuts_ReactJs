@@ -1372,6 +1372,19 @@ a.list-group-item .list-group-item-heading, button.list-group-item .list-group-i
   position: relative;
 }
 
+.progress-bar.skill-1 {
+  width: 70%
+}
+.progress-bar.skill-2 {
+  width: 70%
+}
+.progress-bar.skill-3 {
+  width: 40%
+}
+.progress-bar.skill-4 {
+  width: 90%
+}
+
 .progress-bar-default {
   background-color: #333333;
 }
@@ -1794,6 +1807,15 @@ table > thead > tr > th, table > thead > tr > td, table > tbody > tr > th, table
   background-position: center;
   background-color: #cccccc;
 }
+
+#header-banner.about {
+  background: url("../images/about_banner-3.jpg") no-repeat;
+  background-size: cover;
+  /* background-position: center; */
+  background-color: #cccccc;
+  height: 400px !important;
+}
+
 
 #header-banner.demo-2 {
   background: url("../images/banner-bg2.jpg") no-repeat;
