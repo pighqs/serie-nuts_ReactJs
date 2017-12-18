@@ -50,7 +50,7 @@ class Navbar extends React.Component {
                 <Link to="/">ABOUT</Link>
               </li>
               <li>
-                <Link to="/">CONTACT</Link>
+                <Link to="/contact">CONTACT</Link>
               </li>
               <li onClick={this.searchOnclick}>
                 <Link to="/">SEARCH</Link>

@@ -20,6 +20,7 @@ class RoutesList extends React.Component {
         <Route path="/about" component={About} />
         <Route path="/affichageseriesingle" component={AffichageSerieSingle}/>
         <Route path="/searchresults" component={SearchResults}/>
+        <Route path="/contact" component={Contact}/>
       </div>
     );
   }

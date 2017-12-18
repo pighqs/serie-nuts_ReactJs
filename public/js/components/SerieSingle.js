@@ -1,7 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
-import SerieSingleAccordion from "./SerieSingleAccordion";
+
+import SerieSeasons from "./SerieSeasons";
 
 class SerieSingle extends React.Component {
   constructor() {
@@ -28,12 +29,6 @@ class SerieSingle extends React.Component {
   }
 
   render() {
-    if (this.state.returnSeriesFromAPI.seasons_details != undefined) {
-      var myseasons = this.state.returnSeriesFromAPI.seasons_details.map(x => (
-        <li>{x.number}</li>
-      ));
-    }
-
     var categs = this.state.returnSeriesFromAPI.genres;
     if (categs != undefined) {
       var categs = categs.join(" - ");
@@ -47,7 +42,7 @@ class SerieSingle extends React.Component {
     } else {
       var imagesingle = "./images/default-poster-white.jpg";
     }
-
+      console.log(this.state.returnSeriesFromAPI.seasons_details);
     return (
       <div id="page-content" className="container">
         <section id="project">
@@ -62,9 +57,6 @@ class SerieSingle extends React.Component {
                 <h4>
                   Total Seasons : {this.state.returnSeriesFromAPI.seasons}{" "}
                 </h4>
-                <ul>
-                  <li>{myseasons}</li>
-                </ul>
               </div>
             </div>
 
@@ -118,7 +110,7 @@ class SerieSingle extends React.Component {
               </div>
             </div>
           </div>
-          <SerieSingleAccordion
+          <SerieSeasons
           content={this.state.returnSeriesFromAPI.seasons_details}
           />
         </section>
