@@ -1,20 +1,54 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React from "react";
 
-class About extends React.Component {
-    constructor() {
-        super();
-    }
+import Navbar from './Navbar';
+import AboutTheTeam from './AboutTheTeam';
+import AboutFacts from './AboutFacts';
+import Team from './Team'
+import Footer from './Footer'
 
+
+
+class AboutBanner extends React.Component {
   render() {
     return (
-      <div>
-        <h1>About</h1>
-        <h2><Link to="/">Home</Link></h2>
+      <div id="header-banner" className="about">
+        <div className="banner-content text-center">
+          <div className="banner-info">
+            <h1>THE TEAM</h1>
+            <p>Les Cowboys</p>
+          </div>
+        </div>
       </div>
     );
   }
 }
 
+class About extends React.Component {
+  constructor() {
+    super();
+  }
+
+  render() {
+    return (
+      <div>
+        <header>
+          <Navbar />
+          <AboutBanner />
+        </header>
+
+        <div id="page-content" className="container">
+
+          <AboutTheTeam/>
+
+          <AboutFacts/>
+
+          <Team/>
+
+        </div>
+        <Footer />
+      </div>
+    );
+  }
+}
 
 export default About;
