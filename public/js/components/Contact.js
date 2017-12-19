@@ -67,7 +67,7 @@ class Contact extends React.Component {
                       type="text"
                       className="form-control"
                       id="name"
-                      name="FULL NAME"
+                      name="fullname"
                       placeholder="Full Name"
                     />
                     <div className="help-block with-errors" />
@@ -78,7 +78,7 @@ class Contact extends React.Component {
                       type="email"
                       className="form-control"
                       id="email"
-                      name="EMAIL"
+                      name="email"
                       placeholder="Email"
                     />
                     <div className="help-block with-errors" />
@@ -89,7 +89,7 @@ class Contact extends React.Component {
                       id="message"
                       className="form-control"
                       rows="5"
-                      name="MESSAGE"
+                      name="message"
                       placeholder="Message"
                     />
                     <div className="help-block with-errors" />
