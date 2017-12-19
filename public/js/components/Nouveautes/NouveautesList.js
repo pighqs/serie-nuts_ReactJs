@@ -31,6 +31,7 @@ class NouveautesList extends React.Component {
     var filter = this.props.activeFilter.activeFilter;
     var newSeries = [];
     var lengthStateDatas;
+    var genres = "";
 
     this.state.returnSeriesFromAPI.length > 15
       ? (lengthStateDatas = 15)

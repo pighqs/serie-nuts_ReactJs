@@ -29,6 +29,7 @@ class Navbar extends React.Component {
     this.state.searchIsON === true
       ? this.setState({ searchIsON: false })
       : this.setState({ searchIsON: true });
+      
   }
 
 
@@ -36,7 +37,7 @@ class Navbar extends React.Component {
     var linksNames = ["HOME", "ABOUT", "CONTACT", "SEARCH"];
     var linksNavbar = [];
     var linkNavbar;
-    var classes = "link";
+    var classes;
 
     for (var i = 0; i < linksNames.length; i++) {
       var isActive;
