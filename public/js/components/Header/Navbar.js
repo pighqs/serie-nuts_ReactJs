@@ -34,7 +34,7 @@ class Navbar extends React.Component {
 
 
   render() {
-    var linksNames = ["HOME", "ABOUT", "CONTACT", "SEARCH"];
+    var linksNames = ["HOME", "MY NUTS", "ABOUT", "CONTACT", "SEARCH"];
     var linksNavbar = [];
     var linkNavbar;
     var classes;
