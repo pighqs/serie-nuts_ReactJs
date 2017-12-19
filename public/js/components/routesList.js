@@ -17,6 +17,7 @@ class RoutesList extends React.Component {
     return (
       <div>
         <Route exact path="/" component={Home} />
+        <Route exact path="/home" component={Home} />
         <Route path="/about" component={About} />
         <Route path="/affichageseriesingle" component={AffichageSerieSingle}/>
         <Route path="/searchresults" component={SearchResults}/>

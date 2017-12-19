@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 import { connect } from "react-redux";
 
 
-
 class Filter extends React.Component {
 
     constructor() {
@@ -35,12 +34,11 @@ class Filter extends React.Component {
       filters.push(
       <li
       className={classes}
-      onClick={this.filterOnclick}>           
+      onClick={this.filterOnclick}
+      key={i}>           
           {categories[i]}
       </li>
       );
-
-
       }
     return (
         <ul className="portfolio-filter list-inline text-center">
