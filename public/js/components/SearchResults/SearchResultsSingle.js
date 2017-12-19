@@ -29,7 +29,6 @@ class SearchResultsSingle extends React.Component {
               <Link to={this.props.link} className="view-btn">
                 <i className="lnr lnr-eye" />
               </Link>
-
             </div>
 
             <div className="project-details">
@@ -49,6 +48,7 @@ function mapDispatchToProps(dispatch, props) {
     }
   };
 }
+
 
 var SearchResultsSingleRedux = connect(null, mapDispatchToProps)(SearchResultsSingle);
 

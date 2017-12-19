@@ -95,6 +95,7 @@ class NouveautesList extends React.Component {
   }
 }
 
+
 function mapStateToProps(state) {
   return { activeFilter: state.activeFilter };
 }

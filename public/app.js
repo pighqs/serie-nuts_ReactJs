@@ -18,9 +18,11 @@ import searchRequest from './js/reducers/search.reducer';
 import activeFilter from './js/reducers/filter.reducer';
 import selectedSerie from './js/reducers/selectedserie.reducer';
 import activeLink from './js/reducers/link.reducer';
+import nutSerie from './js/reducers/nutserie.reducer';
 
 
-const globalReducers = combineReducers({searchRequest, selectedSerie, activeFilter, activeLink, form: formReducer});
+
+const globalReducers = combineReducers({searchRequest, selectedSerie, activeFilter, activeLink, nutSerie, form: formReducer});
 
 
 

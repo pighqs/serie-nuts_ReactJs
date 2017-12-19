@@ -1152,6 +1152,12 @@ a.btn {
   color: #3a9fbc;
 }
 
+.alert-nuts {
+  color: white;
+  background-color: #c39d6d;
+  border-color: #ad8b62;
+}
+
 .alert-warning {
   color: white;
   background-color: #e2a740;
