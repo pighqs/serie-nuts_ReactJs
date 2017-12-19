@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-import Filter from "./Filter";
+import Filter from "../Filter";
 import NouveautesList from "./NouveautesList";
 
 

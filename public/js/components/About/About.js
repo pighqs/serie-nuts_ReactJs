@@ -1,10 +1,10 @@
 import React from "react";
 
-import Navbar from './Navbar';
+import Navbar from '../Header/Navbar';
 import AboutTheTeam from './AboutTheTeam';
 import AboutFacts from './AboutFacts';
 import Team from './Team'
-import Footer from './Footer'
+import Footer from '../Footer'
 
 
 

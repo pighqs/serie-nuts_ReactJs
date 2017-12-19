@@ -1,8 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import Header from "./Header";
+import Header from "./Header/Header";
 import Footer from "./Footer";
-import Nouveautes from "./Nouveautes";
+import Nouveautes from "./Nouveautes/Nouveautes";
 
 class Home extends React.Component {
 
