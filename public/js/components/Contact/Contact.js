@@ -1,8 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-var Field = require('redux-form').Field;
-var reduxForm = require('redux-form').reduxForm;
+var Field = require("redux-form").Field;
+var reduxForm = require("redux-form").reduxForm;
 
 class Contact extends React.Component {
   constructor() {
@@ -54,12 +54,21 @@ class Contact extends React.Component {
 
           <div className="row contact-area">
             <div className="col-sm-6 map">
-              <div id="map" />
+              <a target="_blank" id="map" href="https://www.google.com/maps/dir//151+rue+st+denis/">
+                <img
+                  src="https://maps.googleapis.com/maps/api/staticmap?autoscale=false&size=600x300&maptype=roadmap&key=AIzaSyC305qM6vRDceSFQi4Y4nIlaZmeWn5scD0&format=png&visual_refresh=true&markers=size:mid%7Ccolor:0xff0000%7Clabel:%7C151+rue+st+denis"
+                  alt="Google Map of 151 rue st denis"
+                />
+              </a>
             </div>
 
             <div className="col-sm-6 contact-form-area">
               <div id="contact-form">
-                <form onSubmit={ this.props.handleSubmit } id="contactForm" data-toggle="validator">
+                <form
+                  onSubmit={this.props.handleSubmit}
+                  id="contactForm"
+                  data-toggle="validator"
+                >
                   <div className="form-group">
                     <Field
                       component="input"
@@ -107,15 +116,13 @@ class Contact extends React.Component {
             </div>
           </div>
         </div>
-       
       </div>
     );
   }
 }
 
 var ContactRedux = reduxForm({
-  form: 'contact'
-})(Contact)
-
+  form: "contact"
+})(Contact);
 
 export default ContactRedux;
