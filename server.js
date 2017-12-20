@@ -21,21 +21,14 @@ app.get('/', function(req, res) {
 });
 
 app.post('/addfav', function(req, res) {
-  var newNut = req.body;
-  console.log(newNut)
-  nuts.push(newNut);
+   nuts.push(req.body.nut_id);
   console.log(nuts);
-  res.json(nuts);;
+  res.json(nuts);
 });
 
 
 
-app.post("/contact", function(req, res) {
-     trello.addCard(req.body.email +" "+ req.body.fullname, req.body.message +" "+ req.body.email, "5a09a44b26ae08022ce6f477",
-        function (error, trelloCard) {
-        }); 
-  res.json("ok");
-});
+
 
 var port = process.env["PORT"] || 8080;
 

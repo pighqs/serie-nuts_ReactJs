@@ -10,17 +10,20 @@ class NouveautesSingle extends React.Component {
   }
 
   onClickMovetoSingle() {
-    // envoie du state à fonction onSearchClick du container redux
+    // envoi du state à fonction onSearchClick du container redux
     this.props.onClickMovetoSingle(this.props.idserie);
   }
 
   AddFav() {
+    //var that = this;
+    console.log(this.props.idserie);
     this.props.addFav(this.props.idserie);
-    var newNut = this.props.idserie;
-    var that = this;
-    fetch("http://localhost:8080/addfav&", {
+    var nut = new FormData();
+    nut.append( "nut_id", this.props.idserie );
+
+    fetch("http://localhost:8080/addfav", {
       method: "post",
-      body: that
+      body: nut
     })
       .then(response => response.json())
       .then(function(datasFromBack) {
@@ -28,10 +31,7 @@ class NouveautesSingle extends React.Component {
       });
   }
 
-  AddFav() {
-    this.props.addFav(this.props.idserie);
-    //console.log(this.props.idserie);
-  }
+
  
   render() {
     return (
@@ -48,7 +48,7 @@ class NouveautesSingle extends React.Component {
             <Link to={this.props.link} className="view-btn">
               <i className="lnr lnr-eye" onClick={this.onClickMovetoSingle} />
             </Link>
-            <Link to="/home" className="view-btn">
+            <Link to="/" className="view-btn">
               <i className="lnr lnr-poop" onClick={this.AddFav} />
             </Link>
           </div>
