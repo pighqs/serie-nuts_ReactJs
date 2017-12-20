@@ -6,6 +6,7 @@ import About from './About/About';
 import AffichageSerieSingle from './Single/AffichageSerieSingle';
 import SearchResults from './SearchResults/SearchResults';
 import AffichageContact from "./Contact/AffichageContact";
+import SignupLogin from "./SignupLogin/SignupLogin";
 import Nuts from "./Nuts/Nuts";
 
 
@@ -25,6 +26,7 @@ class RoutesList extends React.Component {
         <Route path="/affichageseriesingle" component={AffichageSerieSingle}/>
         <Route path="/searchresults" component={SearchResults}/>
         <Route path="/contact" component={AffichageContact}/>
+        <Route path="/signuplogin" component={SignupLogin}/>
       </div>
     );
   }
