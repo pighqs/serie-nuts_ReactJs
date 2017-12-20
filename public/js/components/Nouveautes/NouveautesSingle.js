@@ -28,6 +28,11 @@ class NouveautesSingle extends React.Component {
       });
   }
 
+  AddFav() {
+    this.props.addFav(this.props.idserie);
+    //console.log(this.props.idserie);
+  }
+ 
   render() {
     return (
       <li
@@ -43,7 +48,9 @@ class NouveautesSingle extends React.Component {
             <Link to={this.props.link} className="view-btn">
               <i className="lnr lnr-eye" onClick={this.onClickMovetoSingle} />
             </Link>
-            <i className="lnr lnr-poop view-btn" onClick={this.AddFav} />
+            <Link to="/home" className="view-btn">
+              <i className="lnr lnr-poop" onClick={this.AddFav} />
+            </Link>
           </div>
 
           <div className="project-details">

@@ -7,11 +7,17 @@ class SearchResultsSingle extends React.Component {
     constructor() {
         super();
         this.onClickMovetoSingle = this.onClickMovetoSingle.bind(this);
+        this.AddFav = this.AddFav.bind(this);
     }
 
     onClickMovetoSingle() {
       // envoie du state à fonction onSearchClick du container redux
       this.props.onClickMovetoSingle(this.props.idserie);
+    }
+
+    AddFav() {
+      this.props.addFav(this.props.idserie);
+      //console.log(this.props.idserie);
     }
 
   render() {
@@ -29,6 +35,9 @@ class SearchResultsSingle extends React.Component {
               <Link to={this.props.link} className="view-btn">
                 <i className="lnr lnr-eye" />
               </Link>
+              <Link to="/home" className="view-btn">
+              <i className="lnr lnr-poop" onClick={this.AddFav} />
+            </Link>
             </div>
 
             <div className="project-details">
@@ -45,6 +54,9 @@ function mapDispatchToProps(dispatch, props) {
   return {
     onClickMovetoSingle: function(value) {
       dispatch({ type: "clickOnSingle", selectedSerie: value });
+    },
+    addFav: function(value) {
+      dispatch({ type: "addToNuts", nutSerie: value });
     }
   };
 }
