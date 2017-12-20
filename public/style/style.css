@@ -2052,7 +2052,7 @@ table > thead > tr > th, table > thead > tr > td, table > tbody > tr > th, table
 .project:hover .project-hover-tools {
   position: absolute;
   top: 45%;
-  left: 44%;
+  left: 40%;
   text-align: center;
   visibility: visible;
   opacity: 1;
