@@ -7,33 +7,83 @@ class NouveautesSingle extends React.Component {
     super();
     this.onClickMovetoSingle = this.onClickMovetoSingle.bind(this);
     this.AddFav = this.AddFav.bind(this);
-  }
+    this.DelFav = this.DelFav.bind(this);
 
+    this.state = {
+      nutsFromDB : []
+    }
+  }
+  
   onClickMovetoSingle() {
     // envoi du state à fonction onSearchClick du container redux
     this.props.onClickMovetoSingle(this.props.idserie);
   }
-
+  
   AddFav() {
-    //var that = this;
-    console.log(this.props.idserie);
+    var that = this;
     this.props.addFav(this.props.idserie);
+    console.log(this.props.idserie);
+    
     var nut = new FormData();
     nut.append( "nut_id", this.props.idserie );
-
-    fetch("http://localhost:8080/addfav", {
+    
+    fetch("/addfav", {
       method: "post",
       body: nut
     })
-      .then(response => response.json())
-      .then(function(datasFromBack) {
-        console.log(datasFromBack);
-      });
+    .then(response => response.json())
+    .then(function(datasFromBack) {
+      //console.log(datasFromBack);
+    });
   }
 
+  DelFav() {
+    var that = this;
+    this.props.DelFav(this.props.idserie);
+    console.log(this.props.idserie);
+    
+    var nut = new FormData();
+    nut.append( "nut_id", this.props.idserie );
+    
+    fetch("/delfav", {
+      method: "post",
+      body: nut
+    })
+    .then(response => response.json())
+    .then(function(datasFromBack) {
+      //console.log(datasFromBack);
+    });
+  }
 
- 
+  componentDidMount() {
+    var that = this;
+    fetch("/findnuts")
+      .then(response => response.json())
+      .then(function(nuts) {
+        that.setState({
+          nutsFromDB: nuts
+        });
+      })
+      .catch(error => console.log("erreur fetch findnuts" + error));
+  }
+
+  
+  
+  
   render() {
+    var nutIcon = <i className="lnr lnr-heart" onClick={this.AddFav} />;
+    this.state.nutsFromDB.map(function(nutFromDB, i) {
+      console.log(this.state.nutsFromDB);
+      console.log(this.props.idserie);
+      console.log("dans map");
+      if(nutFromDB === this.props.idserie){
+          nutIcon = <i className="lnr lnr-poop" onClick={this.DelFav} />;        
+      }
+      else {
+          nutIcon = <i className="lnr lnr-heart" onClick={this.AddFav} />;
+      }
+  }.bind(this));
+
     return (
       <li
         className="col-xs-6 col-md-4 project"
@@ -49,7 +99,7 @@ class NouveautesSingle extends React.Component {
               <i className="lnr lnr-eye" onClick={this.onClickMovetoSingle} />
             </Link>
             <Link to="/" className="view-btn">
-              <i className="lnr lnr-poop" onClick={this.AddFav} />
+              {nutIcon}
             </Link>
           </div>
 

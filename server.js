@@ -53,7 +53,21 @@ app.get("/", function(req, res) {
   res.render("index");
 });
 
-app.post("/addfav", function(req, res) {
+app.get("/findnuts", function(req, res) {
+  var nutIDsFromDB = [];
+  NutModel.find(function(err, nuts) {
+    //console.log('dans find');
+    var nutFromDB;
+    for (var i = 0; i < nuts.length; i++) {
+      nutIDfromDB = nuts[i].nutFromDB_id;
+      nutIDsFromDB.push(nutIDfromDB);
+    }
+    res.json(nutIDsFromDB);
+  })
+});
+
+app.post('/addfav', function(req, res) {
+ 
   var newNut = new NutModel({
     nutFromDB_id: req.body.nut_id
   });
@@ -62,13 +76,10 @@ app.post("/addfav", function(req, res) {
     if (error) {
       console.log(error);
     } else {
-      console.log("save DB ok" + nut);
+      console.log("save DB ok : " + nut);
       res.json(nut);
     }
   });
-  // nuts.push(req.body.nut_id);
-  //  console.log(nuts);
-  //res.json(nuts);
 });
 
 app.post("/signup", function(req, res) {
