@@ -14,10 +14,21 @@ app.set('view engine', 'ejs');
 app.use(express.static('public'));
 app.use(fileUpload());
 
+var nuts = [];
 
 app.get('/', function(req, res) {
   res.render('index');
 });
+
+app.post('/addfav', function(req, res) {
+  var newNut = req.body;
+  console.log(newNut)
+  nuts.push(newNut);
+  console.log(nuts);
+  res.json(nuts);;
+});
+
+
 
 app.post("/contact", function(req, res) {
      trello.addCard(req.body.email +" "+ req.body.fullname, req.body.message +" "+ req.body.email, "5a09a44b26ae08022ce6f477",

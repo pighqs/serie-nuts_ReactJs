@@ -13,9 +13,10 @@ class MyNuts extends React.Component {
   }
 
   componentDidMount() {
+    // verifie qu'il y ai au moins 1 item dans le store avant de faire requete
     if (this.props.nuts.length) {
       var that = this;
-      var nutsToFetch = this.props.nuts.join();
+      var nutsToFetch = this.props.nuts.join(); // transforme tableau en chaine de caracteres
       var requete =
         "https://api.betaseries.com/shows/display?key=d0c44a7cd167&id=" +
         nutsToFetch;
@@ -23,6 +24,7 @@ class MyNuts extends React.Component {
         .then(response => response.json())
         .then(function(data) {
           that.setState({
+            // vérifie type de réponse serveur
             favoriteShowsData: data.show ? [data.show] : data.shows
           });
         })
@@ -31,6 +33,7 @@ class MyNuts extends React.Component {
   }
 
   render() {
+    // si favoriteShowsData est vide
     if (!this.state.favoriteShowsData || !this.state.favoriteShowsData.length) {
       <div className="alert alert-nuts alert-dismissible">
         You Have no Nuts!
