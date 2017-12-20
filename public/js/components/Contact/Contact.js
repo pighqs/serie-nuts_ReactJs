@@ -4,7 +4,6 @@ import { Link } from "react-router-dom";
 var Field = require('redux-form').Field;
 var reduxForm = require('redux-form').reduxForm;
 
-
 class Contact extends React.Component {
   constructor() {
     super();
