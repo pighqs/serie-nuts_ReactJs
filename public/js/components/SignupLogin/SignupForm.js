@@ -4,18 +4,17 @@ import { Link } from "react-router-dom";
 var Field = require("redux-form").Field;
 var reduxForm = require("redux-form").reduxForm;
 
-class SignupLoginForm extends React.Component {
+class SignupForm extends React.Component {
   constructor(props) {
     super(props);
   }
 
   render() {
     var bugmessage;
-    if (this.props.buglog === true){
-      bugmessage = <div>User Already Exists</div>
-    }
-    else {
-      bugmessage = <div></div>
+    if (this.props.buglog === true) {
+      bugmessage = <div>User Already Exists</div>;
+    } else {
+      bugmessage = <div />;
     }
     return (
       <div>
@@ -65,7 +64,6 @@ class SignupLoginForm extends React.Component {
                 {bugmessage}
               </div>
             </div>
-            
           </div>
         </div>
       </div>
@@ -73,8 +71,8 @@ class SignupLoginForm extends React.Component {
   }
 }
 
-var SignupLoginFormRedux = reduxForm({
-  form: "SignupLoginForm"
-})(SignupLoginForm);
+var SignupFormRedux = reduxForm({
+  form: "SignupForm"
+})(SignupForm);
 
-export default SignupLoginFormRedux;
+export default SignupFormRedux;

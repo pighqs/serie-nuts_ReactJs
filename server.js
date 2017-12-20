@@ -105,6 +105,19 @@ app.post("/signup", function(req, res) {
   });
 });
 
+app.post("/signin", function(req, res) {
+  UserModel.find(function(err, userlist) {
+    for (var i=0; i<userlist.length; i++){
+      if (req.body.email == userlist[i].email && req.body.password == userlist[i].password){
+        res.json("ok");
+      }
+      else {
+        res.json("ko");
+      }
+    }
+  });
+});
+
 app.post("/contact", function(req, res) {
   trello.addCard(
     req.body.email + " " + req.body.fullname,
