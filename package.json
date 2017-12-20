@@ -8,6 +8,7 @@
     "express": "^4.16.2",
     "express-fileupload": "^0.3.0",
     "google-maps-react": "^1.1.2",
+    "mongoose": "^4.13.7",
     "react": "^16.1.1",
     "react-bootstrap": "^0.31.5",
     "react-dom": "^16.1.1",
@@ -15,6 +16,7 @@
     "react-router-dom": "^4.2.2",
     "redux": "^3.7.2",
     "redux-form": "^7.2.0",
+    "require": "^2.4.20",
     "trello": "^0.8.0"
   },
   "devDependencies": {
