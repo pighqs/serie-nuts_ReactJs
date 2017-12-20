@@ -35,10 +35,15 @@ mongoose.connect(
 var nutSchema = mongoose.Schema({
   nutFromDB_id: Number, 
 });
+var userSchema = mongoose.Schema({
+  usermail: String,
+  userpassword: String
+});
 
 // models
 var NutModel = mongoose.model("nuts", nutSchema);
-
+var UserModel = mongoose.model("users", userSchema);
+var users = [];
 
 app.get('/', function(req, res) {
   res.render('index');
