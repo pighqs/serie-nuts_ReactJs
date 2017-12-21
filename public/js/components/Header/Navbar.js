@@ -34,7 +34,11 @@ class Navbar extends React.Component {
 
 
   render() {
-    var linksNames = ["HOME", "MY NUTS", "ABOUT", "CONTACT", "SIGNUPLOGIN", "SEARCH"];
+    if (this.props.isLogged != undefined && this.props.isLogged != null && this.props.isLogged != "") {
+    var linksNames = ["HOME", "MY NUTS", "ABOUT", "CONTACT", "LOGOUT", "SEARCH"];
+    } else {
+      var linksNames = ["HOME", "ABOUT", "CONTACT", "SIGNUPLOGIN"];
+    }
     var linksNavbar = [];
     var linkNavbar;
     var classes;
@@ -110,7 +114,7 @@ function mapDispatchToProps(dispatch, props) {
 }
 
 function mapStateToProps(state) {
-  return { activeLink: state.activeLink };
+  return { activeLink: state.activeLink, isLogged: state.currentUser };
 }
 
 var NavbarRedux = connect(mapStateToProps, mapDispatchToProps)(Navbar);

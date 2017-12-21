@@ -8,6 +8,7 @@ import SearchResults from './SearchResults/SearchResults';
 import AffichageContact from "./Contact/AffichageContact";
 import SignupLogin from "./SignupLogin/SignupLogin";
 import Nuts from "./Nuts/Nuts";
+import Logout from "./SignupLogin/Logout";
 
 
 
@@ -27,6 +28,7 @@ class RoutesList extends React.Component {
         <Route path="/searchresults" component={SearchResults}/>
         <Route path="/contact" component={AffichageContact}/>
         <Route path="/signuplogin" component={SignupLogin}/>
+        <Route path="/logout" component={Logout}/>
       </div>
     );
   }
