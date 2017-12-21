@@ -8,71 +8,68 @@ class SearchResultsList extends React.Component {
   constructor() {
     super();
     this.state = {
-      returnSeriesFromAPI: []
+      returnSeriesFromAPI: [],
+      favsFromDB: []
     };
   }
 
   componentDidMount() {
-    var thisIsThis = this;
+    var that = this;
     var limitResults = 30;
     var userSearch = this.props.userSearch.searchRequest;
-    console.log(userSearch);
+    
     fetch(
       "https://api.betaseries.com/shows/list?key=d0c44a7cd167&id=8847&order=followers&starting=" +
         userSearch
     )
       .then(response => response.json())
       .then(function(datas) {
-        thisIsThis.setState({
+        that.setState({
           returnSeriesFromAPI: datas.shows
         });
       })
       .catch(error =>
         console.log("erreur fetch SearchResultsList !!!" + error)
       );
-  }
 
-  //   componentWillReceiveProps(newProps) {
-  //     var thisIsThis = this;
-  //     var limitResults = 30;
-  //     var userSearch = newProps.userSearch.searchRequest;
-  //     console.log(userSearch);
-  //     fetch(
-  //       "https://api.betaseries.com/shows/list?key=d0c44a7cd167&id=8847&starting="+userSearch
-  //     )
-  //       .then(response => response.json())
-  //       .then(function(datas) {
-  //         thisIsThis.setState({
-  //           returnSeriesFromAPI: datas.shows
-  //         });
-  //       })
-  //       .catch(error =>
-  //         console.log("erreur fetch SearchResultsList !!!" + error)
-  //       );
-  //   }
+    // fetch server -> DB retourne favoris
+    fetch("/findnuts")
+      .then(response => response.json())
+      .then(function(nuts) {
+        that.setState({
+          favsFromDB: nuts
+        });
+      })
+      .catch(error => console.log("erreur fetch findnuts" + error));
+  }
 
   render() {
     var searchResults = [];
     var lengthStateDatas;
-    this.state.returnSeriesFromAPI.length > 9
-      ? (lengthStateDatas = 9)
-      : (lengthStateDatas = this.state.returnSeriesFromAPI.length);
-    for (var i = 0; i < lengthStateDatas; i++) {
+    var favs = this.state.favsFromDB;
+    var poster;
 
-        var poster;
-        if (this.state.returnSeriesFromAPI[i].images.poster != undefined) {
-            poster = this.state.returnSeriesFromAPI[i].images.poster
-        } else {
-            poster= "./images/default-poster.jpg";
-        }
-        
+    this.state.returnSeriesFromAPI.length > 30
+      ? (lengthStateDatas = 30)
+      : (lengthStateDatas = this.state.returnSeriesFromAPI.length);
+
+    for (var i = 0; i < lengthStateDatas; i++) {
+      var isFav;
+      poster = this.state.returnSeriesFromAPI[i].images.poster || "./images/default-poster.jpg";
+      if (favs.includes(this.state.returnSeriesFromAPI[i].id)) {
+        isFav = true;
+      } else {
+        isFav = false;
+      }
+
       searchResults.push(
         <SearchResultsSingle
           title={this.state.returnSeriesFromAPI[i].title}
           description={this.state.returnSeriesFromAPI[i].description}
           img={poster}
           link="/affichageseriesingle"
-          idserie = {this.state.returnSeriesFromAPI[i].id}
+          idserie={this.state.returnSeriesFromAPI[i].id}
+          favIcon={isFav}
           key={i}
         />
       );
@@ -92,7 +89,6 @@ class SearchResultsList extends React.Component {
 }
 
 function mapStateToProps(state) {
-  //console.log(state.searchRequest);
   return { userSearch: state.searchRequest };
 }
 

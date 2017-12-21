@@ -59,14 +59,13 @@ app.get("/findnuts", function(req, res) {
       nutIDfromDB = nuts[i].nutFromDB_id;
       nutIDsFromDB.push(nutIDfromDB);
     }
-    console.log(nutIDsFromDB);
+    //console.log(nutIDsFromDB);
     res.json(nutIDsFromDB);
   });
 });
 
 app.post("/addfav", function(req, res) {
-  // console.log('id reçu')
-  // console.log(req.body.nut_id)
+  // console.log('id reçu' + req.body.nut_id)
 
   var newNut = new NutModel({
     nutFromDB_id: req.body.nut_id

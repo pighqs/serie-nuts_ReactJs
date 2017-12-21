@@ -16,6 +16,7 @@ class NouveautesList extends React.Component {
 
   componentDidMount() {
     var that = this;
+    // fetch series from betaseries (classés par nb followers);
     fetch(
       "https://api.betaseries.com/shows/list?key=d0c44a7cd167&order=followers&limit=60"
     )
@@ -27,6 +28,7 @@ class NouveautesList extends React.Component {
       })
       .catch(error => console.log("erreur fetch NouveautesList !!!" + error));
 
+    // fetch server -> DB retourne favoris
     fetch("/findnuts")
       .then(response => response.json())
       .then(function(nuts) {
@@ -38,8 +40,6 @@ class NouveautesList extends React.Component {
   }
 
   render() {
-    console.log("favs : " + this.state.favsFromDB);
-    console.log("series from API : " + this.state.returnSeriesFromAPI);
     var filter = this.props.activeFilter.activeFilter;
     var newSeries = [];
     var lengthStateDatas;
@@ -56,7 +56,6 @@ class NouveautesList extends React.Component {
       for (var i = 0; i < lengthStateDatas; i++) {
         var isFav;
         poster = this.state.returnSeriesFromAPI[i].images.poster || "./images/default-poster.jpg";
-        //console.log(favs);
         if (favs.includes(this.state.returnSeriesFromAPI[i].id)) {
           isFav = true;
         } else {
@@ -104,7 +103,6 @@ class NouveautesList extends React.Component {
     return (
       <ul className="row portfolio list-unstyled lightbox" id="grid">
         {newSeries}
-
         <li className="col-xs-6 col-md-4 shuffle_sizer" />
       </ul>
     );

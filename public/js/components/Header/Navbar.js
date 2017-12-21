@@ -18,7 +18,6 @@ class Navbar extends React.Component {
   }
 
 
-
   linkOnclick(e) {
     this.props.linkOnclick(e.target.textContent.toLowerCase());
     var value = e.target.textContent;
