@@ -4,13 +4,18 @@ import Navbar from "../Header/Navbar";
 import Footer from "../Footer";
 import SignupForm from "./SignupForm";
 import LoginForm from "./LoginForm";
+import { connect } from "react-redux";
 
 class SignupLogin extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.submit = this.submit.bind(this);
     this.submitlogin = this.submitlogin.bind(this);
-    this.state = { islogged: false, currentUser: null, signupError: false, loginError : false };
+    this.state = {
+      currentUser: null,
+      signupError: false,
+      loginError: false
+    };
   }
 
   submit(values) {
@@ -18,23 +23,21 @@ class SignupLogin extends React.Component {
     var formData = new FormData();
     formData.append("email", values.email);
     formData.append("password", values.password);
-    fetch("http://localhost:8080/signup", {
+    fetch("/signup", {
       method: "post",
       body: formData
     })
       .then(response => response.json())
       .then(function(datas) {
-        console.log(datas);
         if (datas === null) {
           ctx.setState({
-            islogged: false,
             signupError: true
           });
         } else {
           ctx.setState({
-            islogged: true,
             currentUser: datas._id
           });
+          ctx.props.userlogged(datas);
         }
       });
   }
@@ -44,7 +47,7 @@ class SignupLogin extends React.Component {
     var formData = new FormData();
     formData.append("email", values.email);
     formData.append("password", values.password);
-    fetch("http://localhost:8080/login", {
+    fetch("/login", {
       method: "post",
       body: formData
     })
@@ -52,29 +55,29 @@ class SignupLogin extends React.Component {
       .then(function(datas) {
         if (datas === "ko") {
           ctx.setState({
-            islogged: false,
             loginError: true
           });
         } else {
           ctx.setState({
-            islogged: true,
             currentUser: datas
           });
+          ctx.props.userlogged(datas);
         }
       });
   }
 
   render() {
-    if (this.state.islogged === true) {
+    if (
+      this.props.isLogged != undefined &&
+      this.props.isLogged != null &&
+      this.props.isLogged != ""
+    ) {
       return <Redirect to="/" />;
     } else {
       return (
         <div>
           <Navbar />
-          <SignupForm
-            buglog={this.state.signupError}
-            onSubmit={this.submit}
-          />
+          <SignupForm buglog={this.state.signupError} onSubmit={this.submit} />
           <LoginForm
             buglog={this.state.loginError}
             onSubmit={this.submitlogin}
@@ -86,4 +89,20 @@ class SignupLogin extends React.Component {
   }
 }
 
-export default SignupLogin;
+function mapDispatchToProps(dispatch, props) {
+  return {
+    userlogged: function(value) {
+      dispatch({ type: "logged", currentUser: value });
+    }
+  };
+}
+
+function mapStateToProps(state) {
+  return { isLogged: state.currentUser };
+}
+
+var SignupLoginRedux = connect(mapStateToProps, mapDispatchToProps)(
+  SignupLogin
+);
+
+export default SignupLoginRedux;

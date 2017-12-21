@@ -1,6 +1,5 @@
-var express   = require('express');
+var express = require("express");
 var app = express();
-
 
 var bodyParser = require("body-parser");
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -9,19 +8,22 @@ app.use(bodyParser.json());
 var fileUpload = require("express-fileupload");
 
 var Trello = require("trello");
-var trello = new Trello("9603bc7c9a3c59641cbd504787ab613e", "7df626b71b4cb849b6d1f70ef7dc890d72d1c84eb054cd4c6fb509fdc5981515");
+var trello = new Trello(
+  "9603bc7c9a3c59641cbd504787ab613e",
+  "7df626b71b4cb849b6d1f70ef7dc890d72d1c84eb054cd4c6fb509fdc5981515"
+);
 
-app.set('view engine', 'ejs');
-app.use(express.static('public'));
+app.set("view engine", "ejs");
+app.use(express.static("public"));
 app.use(fileUpload());
 
 //// CONNECTION DB MLAB
 var mongoose = require("mongoose");
-var options = { server: { socketOptions: { connectTimeoutMS: 30000 } },  };
+var options = { server: { socketOptions: { connectTimeoutMS: 30000 } } };
 
 mongoose.connect(
   "mongodb://cowboys:serienuts@ds121534.mlab.com:21534/serienuts",
-  {useMongoClient: true},
+  { useMongoClient: true },
   function(err) {
     if (err) {
       console.log("erreur : " + err);
@@ -33,7 +35,7 @@ mongoose.connect(
 
 // schemas
 var nutSchema = mongoose.Schema({
-  nutFromDB_id: Number, 
+  nutFromDB_id: Number
 });
 var userSchema = mongoose.Schema({
   usermail: String,
@@ -45,8 +47,8 @@ var NutModel = mongoose.model("nuts", nutSchema);
 var UserModel = mongoose.model("users", userSchema);
 var users = [];
 
-app.get('/', function(req, res) {
-  res.render('index');
+app.get("/", function(req, res) {
+  res.render("index");
 });
 
 app.get("/findnuts", function(req, res) {
@@ -58,15 +60,15 @@ app.get("/findnuts", function(req, res) {
       nutIDsFromDB.push(nutIDfromDB);
     }
     res.json(nutIDsFromDB);
-  })
+  });
 });
 
-app.post('/addfav', function(req, res) {
+app.post("/addfav", function(req, res) {
   // console.log('id reçu')
   // console.log(req.body.nut_id)
 
   var newNut = new NutModel({
-    nutFromDB_id: req.body.nut_id,
+    nutFromDB_id: req.body.nut_id
   });
 
   newNut.save(function(error, nut) {
@@ -76,11 +78,10 @@ app.post('/addfav', function(req, res) {
       console.log("save DB ok : " + nut);
       res.json(nut);
     }
-
   });
 });
 
-app.post('/delfav', function(req, res) {
+app.post("/delfav", function(req, res) {
   // console.log('id reçu')
   // console.log(req.body.nut_id)
 
@@ -90,40 +91,53 @@ app.post('/delfav', function(req, res) {
 });
 
 app.post("/login", function(req, res) {
-  UserModel.find(function(err, userlist) {
-    for (var i=0; i<userlist.length; i++){
-      if (req.body.email == userlist[i].usermail && req.body.password == userlist[i].userpassword){
-        res.json(userlist[i]._id);
+  var test = "ko";
+  if (
+    req.body.email != undefined &&
+    req.body.email != "undefined" &&
+    req.body.email != "" &&
+    req.body.password != undefined &&
+    req.body.password != "" &&
+    req.body.password != "undefined"
+  ) {
+    UserModel.find(function(err, userlist) {
+      for (var i = 0; i < userlist.length; i++) {
+        if (
+          req.body.email == userlist[i].usermail &&
+          req.body.password == userlist[i].userpassword
+        ) {
+          test = userlist[i]._id;
+        } else {
+        }
       }
-      else {
-        res.json("ko");
-      }
-    }
-  });
+      res.json(test);
+    });
+  } else {
+    res.json(test);
+  }
 });
 
 app.post("/signup", function(req, res) {
-    var query= UserModel.findOne({usermail: req.body.email});
-    query.exec(function(error, checkexist){
-      if (checkexist == undefined){
-        var newUser = new UserModel({
-          usermail: req.body.email,
-          userpassword: req.body.password
-        });
-        newUser.save(function(error, savedUser) {
-          if (error) {
-            console.log(error);
-          } else {
-            console.log("save DB ok" + savedUser);
-            res.json(savedUser);
-          }
-        }); 
-      }
-      else {
-        res.json(error);
-      }
-    });
+  var query = UserModel.findOne({ usermail: req.body.email });
+  query.exec(function(error, checkexist) {
+    if (checkexist == undefined) {
+      var newUser = new UserModel({
+        usermail: req.body.email,
+        userpassword: req.body.password
+      });
+      newUser.save(function(error, savedUser) {
+        if (error) {
+          console.log(error);
+        } else {
+          console.log("save DB ok" + savedUser);
+          res.json(savedUser);
+        }
+      });
+    } else {
+      res.json(error);
+    }
   });
+});
 
 app.post("/contact", function(req, res) {
   trello.addCard(

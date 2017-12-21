@@ -19,10 +19,10 @@ import activeFilter from './js/reducers/filter.reducer';
 import selectedSerie from './js/reducers/selectedserie.reducer';
 import activeLink from './js/reducers/link.reducer';
 import nutSerie from './js/reducers/nutserie.reducer';
+import currentUser from './js/reducers/currentUser.reducer';
 
 
-
-const globalReducers = combineReducers({searchRequest, selectedSerie, activeFilter, activeLink, nutSerie, form: formReducer});
+const globalReducers = combineReducers({searchRequest, selectedSerie, activeFilter, activeLink, nutSerie, currentUser, form: formReducer});
 
 
 
