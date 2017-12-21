@@ -44,22 +44,21 @@ class SignupLogin extends React.Component {
     var formData = new FormData();
     formData.append("email", values.email);
     formData.append("password", values.password);
-    fetch("http://localhost:8080/signin", {
+    fetch("http://localhost:8080/login", {
       method: "post",
       body: formData
     })
       .then(response => response.json())
       .then(function(datas) {
-        console.log(datas);
         if (datas === "ko") {
           ctx.setState({
             islogged: false,
             loginError: true
           });
-        } else if (datas === "ok"){
+        } else {
           ctx.setState({
             islogged: true,
-            currentUser: datas._id
+            currentUser: datas
           });
         }
       });

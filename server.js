@@ -89,11 +89,11 @@ app.post('/delfav', function(req, res) {
   });
 });
 
-app.post("/signin", function(req, res) {
+app.post("/login", function(req, res) {
   UserModel.find(function(err, userlist) {
     for (var i=0; i<userlist.length; i++){
-      if (req.body.email == userlist[i].email && req.body.password == userlist[i].password){
-        res.json("ok");
+      if (req.body.email == userlist[i].usermail && req.body.password == userlist[i].userpassword){
+        res.json(userlist[i]._id);
       }
       else {
         res.json("ko");

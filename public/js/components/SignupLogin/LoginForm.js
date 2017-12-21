@@ -12,7 +12,7 @@ class LoginForm extends React.Component {
   render() {
     var bugmessage;
     if (this.props.buglog === true) {
-      bugmessage = <div>User Already Exists</div>;
+      bugmessage = <div>Incorrect email or password</div>;
     } else {
       bugmessage = <div />;
     }
@@ -56,7 +56,7 @@ class LoginForm extends React.Component {
                     id="LoginForm-submit"
                     className="btn btn-md btn-primary-filled btn-form-submit"
                   >
-                    SIGN UP
+                    LOGIN
                   </button>
                   <div id="msgSubmit" className="h3 text-center hidden" />
                   <div className="clearfix" />
