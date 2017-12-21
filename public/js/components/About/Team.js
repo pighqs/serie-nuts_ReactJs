@@ -10,7 +10,7 @@ class Team extends React.Component {
       <section id="team">
         <h2 className="text-center space-top-2x">THE TEAM</h2>
         <p className="text-center space-bottom-2x">
-          The amazing team of hard-working designers.
+          The amazing team of hard-working designers and developers.
         </p>
         <div className="row">
           <div className="col-sm-6">

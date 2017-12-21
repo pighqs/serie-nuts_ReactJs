@@ -15,7 +15,7 @@ class AboutBanner extends React.Component {
         <div className="banner-content text-center">
           <div className="banner-info">
             <h1>THE TEAM</h1>
-            <p>Les Cowboys</p>
+            <p className="test">Les Cowboys</p>
           </div>
         </div>
       </div>

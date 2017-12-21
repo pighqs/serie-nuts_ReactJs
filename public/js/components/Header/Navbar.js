@@ -17,8 +17,6 @@ class Navbar extends React.Component {
     };
   }
 
-
-
   linkOnclick(e) {
     this.props.linkOnclick(e.target.textContent.toLowerCase());
     var value = e.target.textContent;
@@ -58,7 +56,15 @@ class Navbar extends React.Component {
             <Link to="/">{linksNames[i]}</Link>
           </li>
         );
-      } else {
+      } else if (linksNames[i] === "HOME"){
+        linkNavbar = (
+          <li className={classes} onClick={this.linkOnclick} key={i}>
+            <Link to="/">{linksNames[i]}</Link>
+          </li>
+        );
+      } 
+      
+      else {
         linkNavbar = (
           <li className={classes} onClick={this.linkOnclick} key={i}>
             <Link to={linksNames[i].toLowerCase()}>{linksNames[i]}</Link>

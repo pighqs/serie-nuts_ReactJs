@@ -1,6 +1,11 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
+var divStyle = {
+  display: "flex",
+  justifyContent : "center"
+};
+
 var Field = require("redux-form").Field;
 var reduxForm = require("redux-form").reduxForm;
 
@@ -19,8 +24,8 @@ class SignupForm extends React.Component {
     return (
       <div>
         <div id="page-content" className="container">
-          <div className="row contact-area">
-            <h4>New Users : Sign Up Here</h4>
+            <h4 style={divStyle}>NEW USERS : Sign Up Here</h4>
+          <div className="row contact-area" style={divStyle}>
             <div className="col-sm-6 contact-form-area">
               <div id="contact-form">
                 <form

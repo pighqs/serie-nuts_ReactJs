@@ -1910,8 +1910,8 @@ table > thead > tr > th, table > thead > tr > td, table > tbody > tr > th, table
 .banner-info p {
   margin-bottom: 0;
   font-size: 24px;
-  color: #be9e73;
-  text-shadow: 1px 1px 1px white;
+  color: white;
+  text-shadow: 1px 1px 1px #be9e73;
 }
 
 /* End Banners */

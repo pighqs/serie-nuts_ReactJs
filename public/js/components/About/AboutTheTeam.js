@@ -27,13 +27,13 @@ class AboutTheTeam extends React.Component {
 
             <h4 className="space-top">SKILLS</h4>
             <p>
-              <strong>ReactJS</strong> <span className="pull-right">90%</span>
+              <strong>ReactJS</strong> <span className="pull-right">70%</span>
             </p>
             <div className="progress progress-label">
               <div
                 className="progress-bar progress-bar-default animated first fadeInLeft skill-1"
                 role="progressbar"
-                aria-valuenow="90"
+                aria-valuenow="70"
                 aria-valuemin="0"
                 aria-valuemax="100"
                 // style="width: 90%"
@@ -41,13 +41,13 @@ class AboutTheTeam extends React.Component {
             </div>
             <p>
               <strong>NodeJS</strong>{" "}
-              <span className="pull-right">80%</span>
+              <span className="pull-right">70%</span>
             </p>
             <div className="progress progress-label">
               <div
                 className="progress-bar progress-bar-primary animated second fadeInLeft skill-2"
                 role="progressbar"
-                aria-valuenow="80"
+                aria-valuenow="70"
                 aria-valuemin="0"
                 aria-valuemax="100"
                 // style="width: 80%"
@@ -56,13 +56,13 @@ class AboutTheTeam extends React.Component {
 
             <p>
               <strong>ReactNATIVE</strong>{" "}
-              <span className="pull-right">90%</span>
+              <span className="pull-right">45%</span>
             </p>
             <div className="progress progress-label">
               <div
                 className="progress-bar progress-bar-success animated third fadeInLeft skill-3"
                 role="progressbar"
-                aria-valuenow="90"
+                aria-valuenow="45"
                 aria-valuemin="0"
                 aria-valuemax="100"
                 // style="width: 90%"
@@ -70,13 +70,13 @@ class AboutTheTeam extends React.Component {
             </div>
 
             <p>
-              <strong>Javascript</strong> <span className="pull-right">80%</span>
+              <strong>Javascript</strong> <span className="pull-right">85%</span>
             </p>
             <div className="progress progress-label">
               <div
                 className="progress-bar progress-bar-info animated fourth fadeInLeft skill-4"
                 role="progressbar"
-                aria-valuenow="80"
+                aria-valuenow="85"
                 aria-valuemin="0"
                 aria-valuemax="100"
                 // style="width: 80%"

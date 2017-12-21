@@ -155,6 +155,39 @@ app.post("/contact", function(req, res) {
   res.json("ok");
 });
 
+
+app.get("/home", function(req, res) {
+  res.render("index");
+});
+
+app.get("/my%20nuts", function(req, res) {
+  res.render("index");
+});
+
+app.get("/about", function(req, res) {
+  res.render("index");
+});
+
+app.get("/affichageseriesingle", function(req, res) {
+  res.render("index");
+});
+
+app.get("/searchresults", function(req, res) {
+  res.render("index");
+});
+
+app.get("/contact", function(req, res) {
+  res.render("index");
+});
+
+app.get("/signuplogin", function(req, res) {
+  res.render("index");
+});
+
+app.get("/logout", function(req, res) {
+  res.render("index");
+});
+
 var port = process.env["PORT"] || 8080;
 
 app.listen(port, function() {
