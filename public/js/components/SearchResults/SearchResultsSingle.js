@@ -7,7 +7,12 @@ class SearchResultsSingle extends React.Component {
     constructor() {
         super();
         this.onClickMovetoSingle = this.onClickMovetoSingle.bind(this);
-        this.AddFav = this.AddFav.bind(this);
+        this.addFav = this.addFav.bind(this);
+        this.delFav = this.delFav.bind(this);
+
+        this.state = {
+          nutsFromDB: []
+        };
     }
 
     onClickMovetoSingle() {
@@ -15,12 +20,63 @@ class SearchResultsSingle extends React.Component {
       this.props.onClickMovetoSingle(this.props.idserie);
     }
 
-    AddFav() {
+    addFav() {
+      var that = this;
       this.props.addFav(this.props.idserie);
-      //console.log(this.props.idserie);
+  
+      var nut = new FormData();
+      nut.append("nut_id", this.props.idserie);
+  
+      fetch("/addfav", {
+        method: "post",
+        body: nut
+      })
+        .then(response => response.json())
+        .then(function(datasFromBack) {
+          //console.log(datasFromBack);
+        });
+    }
+  
+    delFav() {
+      var that = this;
+  
+      var nut = new FormData();
+      nut.append("nut_id", this.props.idserie);
+  
+      fetch("/delfav", {
+        method: "post",
+        body: nut
+      })
+        .then(response => response.json())
+        .then(function(datasFromBack) {
+          //console.log(datasFromBack);
+        });
+    }
+
+    componentDidMount() {
+      var that = this;
+      fetch("/findnuts")
+        .then(response => response.json())
+        .then(function(nuts) {
+          that.setState({
+            nutsFromDB: nuts
+          });
+        })
+        .catch(error => console.log("erreur fetch findnuts" + error));
     }
 
   render() {
+    var nutIcon = <i className="lnr lnr-heart" onClick={this.addFav} />;
+    this.state.nutsFromDB.map(
+      function(nutFromDB, i) {
+        if (nutFromDB === this.props.idserie) {
+          nutIcon = <i className="lnr lnr-poop" onClick={this.delFav} />;
+        } else {
+          nutIcon = <i className="lnr lnr-heart" onClick={this.addFav} />;
+        }
+      }.bind(this)
+    );
+
     return (
         <li
           className="col-xs-6 col-md-4 project"
@@ -31,14 +87,14 @@ class SearchResultsSingle extends React.Component {
 
             <img src={this.props.img} alt="" />
 
-            <div className="project-hover-tools" onClick={this.onClickMovetoSingle}>
-              <Link to={this.props.link} className="view-btn">
-                <i className="lnr lnr-eye" />
-              </Link>
-              <Link to="/home" className="view-btn">
-              <i className="lnr lnr-poop" onClick={this.AddFav} />
+            <div className="project-hover-tools">
+            <Link to={this.props.link} className="view-btn">
+              <i className="lnr lnr-eye" onClick={this.onClickMovetoSingle} />
             </Link>
-            </div>
+            <Link to="/" className="view-btn">
+              {nutIcon}
+            </Link>
+          </div>
 
             <div className="project-details">
               <h5 className="project-title">{this.props.title}</h5>

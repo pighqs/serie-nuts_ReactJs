@@ -7,11 +7,28 @@ class MyNutsSingle extends React.Component {
     constructor() {
         super();
         this.onClickMovetoSingle = this.onClickMovetoSingle.bind(this);
-    }
+        this.delFav = this.delFav.bind(this);
+      }
 
     onClickMovetoSingle() {
       // envoie du state à fonction onSearchClick du container redux
       this.props.onClickMovetoSingle(this.props.idserie);
+    }
+
+    delFav() {
+      var that = this;
+  
+      var nut = new FormData();
+      nut.append("nut_id", this.props.idserie);
+  
+      fetch("/delfav", {
+        method: "post",
+        body: nut
+      })
+        .then(response => response.json())
+        .then(function(datasFromBack) {
+          //console.log(datasFromBack);
+        });
     }
 
 
@@ -26,12 +43,14 @@ class MyNutsSingle extends React.Component {
 
             <img src={this.props.img} alt="" />
 
-            <div className="project-hover-tools" onClick={this.onClickMovetoSingle}>
-              <Link to={this.props.link} className="view-btn">
-                <i className="lnr lnr-eye" />
-              </Link>
-
-            </div>
+            <div className="project-hover-tools">
+            <Link to={this.props.link} className="view-btn">
+              <i className="lnr lnr-eye" onClick={this.onClickMovetoSingle} />
+            </Link>
+            <Link to="/" className="view-btn">
+            <i className="lnr lnr-poop" onClick={this.delFav} />
+            </Link>
+          </div>
 
             <div className="project-details">
               <h5 className="project-title">{this.props.title}</h5>

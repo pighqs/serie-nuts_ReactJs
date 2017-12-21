@@ -112,6 +112,9 @@ function mapDispatchToProps(dispatch, props) {
     },
     addFav: function(value) {
       dispatch({ type: "addToNuts", nutSerie: value });
+    },
+    addFav: function(value) {
+      dispatch({ type: "delFromNuts", nutSerie: value });
     }
   };
 }
