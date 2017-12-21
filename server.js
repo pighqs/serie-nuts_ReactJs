@@ -57,6 +57,7 @@ app.get("/findnuts", function(req, res) {
       nutIDfromDB = nuts[i].nutFromDB_id;
       nutIDsFromDB.push(nutIDfromDB);
     }
+    console.log(nutIDsFromDB);
     res.json(nutIDsFromDB);
   })
 });
@@ -73,7 +74,7 @@ app.post('/addfav', function(req, res) {
     if (error) {
       console.log(error);
     } else {
-      console.log("save DB ok : " + nut);
+      console.log("save nut in DB ok : " + nut);
       res.json(nut);
     }
 
@@ -81,11 +82,13 @@ app.post('/addfav', function(req, res) {
 });
 
 app.post('/delfav', function(req, res) {
-  // console.log('id reçu')
-  // console.log(req.body.nut_id)
-
   NutModel.remove({ nutFromDB_id: req.body.nut_id }, function(error, nut) {
+    if (error) {
+      console.log(error);
+    } else {
+      console.log("remove nut from DB ok : " + nut);
     res.json(nut);
+    }
   });
 });
 

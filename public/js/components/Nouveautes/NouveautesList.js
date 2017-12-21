@@ -9,29 +9,43 @@ class NouveautesList extends React.Component {
   constructor() {
     super();
     this.state = {
-      returnSeriesFromAPI: []
+      returnSeriesFromAPI: [],
+      favsFromDB: [],
     };
   }
 
   componentDidMount() {
-    var thisIsThis = this;
+    var that = this;
     fetch(
       "https://api.betaseries.com/shows/list?key=d0c44a7cd167&order=followers&limit=60"
     )
       .then(response => response.json())
       .then(function(datas) {
-        thisIsThis.setState({
+        that.setState({
           returnSeriesFromAPI: datas.shows
         });
       })
       .catch(error => console.log("erreur fetch NouveautesList !!!" + error));
+
+    fetch("/findnuts")
+      .then(response => response.json())
+      .then(function(nuts) {
+        that.setState({
+          favsFromDB: nuts
+        });
+      })
+      .catch(error => console.log("erreur fetch findnuts" + error));
   }
 
   render() {
+    console.log("favs : " + this.state.favsFromDB);
+    console.log("series from API : " + this.state.returnSeriesFromAPI);
     var filter = this.props.activeFilter.activeFilter;
     var newSeries = [];
     var lengthStateDatas;
     var genres = "";
+    var favs = this.state.favsFromDB;
+    var poster;
 
     this.state.returnSeriesFromAPI.length > 15
       ? (lengthStateDatas = 15)
@@ -40,11 +54,13 @@ class NouveautesList extends React.Component {
     // si le filtre "all est selectionné" (par défaut) :
     if (filter === "all") {
       for (var i = 0; i < lengthStateDatas; i++) {
-        var poster;
-        if (this.state.returnSeriesFromAPI[i].images.poster != undefined) {
-          poster = this.state.returnSeriesFromAPI[i].images.poster;
+        var isFav;
+        poster = this.state.returnSeriesFromAPI[i].images.poster || "./images/default-poster.jpg";
+        //console.log(favs);
+        if (favs.includes(this.state.returnSeriesFromAPI[i].id)) {
+          isFav = true;
         } else {
-          poster = "./images/default-poster.jpg";
+          isFav = false;
         }
 
         newSeries.push(
@@ -52,9 +68,10 @@ class NouveautesList extends React.Component {
             title={this.state.returnSeriesFromAPI[i].title}
             description={this.state.returnSeriesFromAPI[i].description}
             img={poster}
-            link = "/affichageseriesingle"
-            idserie = {this.state.returnSeriesFromAPI[i].id}
-            key = {i}
+            link="/affichageseriesingle"
+            idserie={this.state.returnSeriesFromAPI[i].id}
+            favIcon={isFav}
+            key={i}
           />
         );
       }
@@ -65,22 +82,21 @@ class NouveautesList extends React.Component {
           x.toLowerCase()
         );
         if (genres.includes(filter)) {
-            var poster;
-            if (this.state.returnSeriesFromAPI[i].images.poster != undefined) {
-              poster = this.state.returnSeriesFromAPI[i].images.poster;
-            } else {
-              poster = "./images/default-poster.jpg";
-            }
-            newSeries.push(
-                <NouveautesSingle
-                  title={this.state.returnSeriesFromAPI[i].title}
-                  description={this.state.returnSeriesFromAPI[i].description}
-                  img={poster}
-                  link = "/affichageseriesingle"
-                  idserie = {this.state.returnSeriesFromAPI[i].id}
-                  key = {i}
-                />
-              );
+          poster = this.state.returnSeriesFromAPI[i].images.poster || "./images/default-poster.jpg";
+          if (favs.includes(this.state.returnSeriesFromAPI[i].id)) {
+            isFav = true;
+          }
+          newSeries.push(
+            <NouveautesSingle
+              title={this.state.returnSeriesFromAPI[i].title}
+              description={this.state.returnSeriesFromAPI[i].description}
+              img={poster}
+              link="/affichageseriesingle"
+              idserie={this.state.returnSeriesFromAPI[i].id}
+              favIcon={isFav}
+              key={i}
+            />
+          );
         }
       }
     }
@@ -94,7 +110,6 @@ class NouveautesList extends React.Component {
     );
   }
 }
-
 
 function mapStateToProps(state) {
   return { activeFilter: state.activeFilter };

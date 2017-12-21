@@ -66,5 +66,6 @@ class MyNuts extends React.Component {
 function mapStateToProps(state) {
   return { nuts: state.nutSerie };
 }
+
 var MyNutsRedux = connect(mapStateToProps, null)(MyNuts);
 export default MyNutsRedux;

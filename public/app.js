@@ -25,7 +25,6 @@ import nutSerie from './js/reducers/nutserie.reducer';
 const globalReducers = combineReducers({searchRequest, selectedSerie, activeFilter, activeLink, nutSerie, form: formReducer});
 
 
-
 const store = createStore(globalReducers, {selectedSerie: "1161"} );
 
 ReactDOM.render(

@@ -38,6 +38,7 @@ class NouveautesSingle extends React.Component {
 
   delFav() {
     var that = this;
+    this.props.delFav(this.props.idserie);
 
     var nut = new FormData();
     nut.append("nut_id", this.props.idserie);
@@ -52,31 +53,31 @@ class NouveautesSingle extends React.Component {
       });
   }
 
-  componentDidMount() {
-    var that = this;
-    fetch("/findnuts")
-      .then(response => response.json())
-      .then(function(nuts) {
-        that.setState({
-          nutsFromDB: nuts
-        });
-      })
-      .catch(error => console.log("erreur fetch findnuts" + error));
-  }
+  // componentDidMount() {
+  //   var that = this;
+  //   fetch("/findnuts")
+  //     .then(response => response.json())
+  //     .then(function(nuts) {
+  //       that.setState({
+  //         nutsFromDB: nuts
+  //       });
+  //     })
+  //     .catch(error => console.log("erreur fetch findnuts" + error));
+  // }
 
   render() {
-    var nutIcon = <i className="lnr lnr-heart" onClick={this.addFav} />;
-    this.state.nutsFromDB.map(
-      function(nutFromDB, i) {
-        if (nutFromDB === this.props.idserie) {
-          nutIcon = <i className="lnr lnr-poop" onClick={this.delFav} />;
-        } else {
-          nutIcon = <i className="lnr lnr-heart" onClick={this.addFav} />;
-        }
-      }.bind(this)
-    );
+    var nutIcon;
+    console.log(this.props.favIcon);
+    if (this.props.favIcon == true ) {
+      console.log("this.props.isFav est true");
+      nutIcon = <i className="lnr lnr-poop" onClick={this.delFav} />
+    } else {
+      nutIcon = <i className="lnr lnr-heart" onClick={this.addFav} />
+    }
+     
 
     return (
+
       <li
         className="col-xs-6 col-md-4 project"
         data-groups="[&quot;illustration&quot;]"
@@ -104,6 +105,9 @@ class NouveautesSingle extends React.Component {
     );
   }
 }
+function mapStateToProps(state) {
+  return { nuts: state.nutSerie };
+}
 
 function mapDispatchToProps(dispatch, props) {
   return {
@@ -113,12 +117,12 @@ function mapDispatchToProps(dispatch, props) {
     addFav: function(value) {
       dispatch({ type: "addToNuts", nutSerie: value });
     },
-    addFav: function(value) {
+    delFav: function(value) {
       dispatch({ type: "delFromNuts", nutSerie: value });
     }
   };
 }
 
-var NouveautesSingleRedux = connect(null, mapDispatchToProps)(NouveautesSingle);
+var NouveautesSingleRedux = connect(mapStateToProps, mapDispatchToProps)(NouveautesSingle);
 
 export default NouveautesSingleRedux;
