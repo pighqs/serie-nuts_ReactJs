@@ -8,7 +8,7 @@ class MyNuts extends React.Component {
   constructor() {
     super();
     this.state = {
-      favoriteShowsData: [],
+      favoriteShowsData: []
     };
   }
 
@@ -19,7 +19,8 @@ class MyNuts extends React.Component {
       .then(response => response.json())
       .then(function(nuts) {
         // verifie qu'il y ai au moins 1 item dans le store avant de faire requete
-        if (nuts) {
+        if (nuts && nuts.length > 0) {
+          console.log(nuts);
           var nutsToFetch = nuts.join(); // transforme tableau en chaine de caracteres
           var requete =
             "https://api.betaseries.com/shows/display?key=d0c44a7cd167&id=" +
@@ -33,41 +34,46 @@ class MyNuts extends React.Component {
               });
             })
             .catch(error => console.log("erreur fetch MyNuts !!!" + error));
-    
         }
       })
       .catch(error => console.log("erreur fetch findnuts" + error));
-
   }
 
   render() {
+    console.log(this.state.favoriteShowsData);
     // si favoriteShowsData est vide
-    if (!this.state.favoriteShowsData || !this.state.favoriteShowsData.length) {
-      <div className="alert alert-nuts alert-dismissible">
-        You Have no Nuts!
-      </div>;
-    }
-    return (
-      <section id="portfolio">
-        <div className="container">
-          <ul className="row portfolio list-unstyled lightbox" id="grid">
-            {this.state.favoriteShowsData.map((favoriteShow, index) => (
-              <MyNutsSingle
-                title={favoriteShow.title}
-                description={favoriteShow.description}
-                img={
-                  favoriteShow.images.poster || "./images/default-poster.jpg"
-                }
-                link="/affichageseriesingle"
-                idserie={favoriteShow.id}
-                key={index}
-              />
-            ))}
-            <li className="col-xs-6 col-md-4 shuffle_sizer" />
-          </ul>
+    if (
+      !this.state.favoriteShowsData ||
+      this.state.favoriteShowsData.length == 0
+    ) {
+      return (
+        <div className="alert alert-nuts alert-dismissible">
+          You Have no Nuts!
         </div>
-      </section>
-    );
+      );
+    } else {
+      return (
+        <section id="portfolio">
+          <div className="container">
+            <ul className="row portfolio list-unstyled lightbox" id="grid">
+              {this.state.favoriteShowsData.map((favoriteShow, index) => (
+                <MyNutsSingle
+                  title={favoriteShow.title}
+                  description={favoriteShow.description}
+                  img={
+                    favoriteShow.images.poster || "./images/default-poster.jpg"
+                  }
+                  link="/affichageseriesingle"
+                  idserie={favoriteShow.id}
+                  key={index}
+                />
+              ))}
+              <li className="col-xs-6 col-md-4 shuffle_sizer" />
+            </ul>
+          </div>
+        </section>
+      );
+    }
   }
 }
 
