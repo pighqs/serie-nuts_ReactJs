@@ -32,7 +32,6 @@ class NouveautesSingle extends React.Component {
     })
       .then(response => response.json())
       .then(function(datasFromBack) {
-        //console.log(datasFromBack);
       });
   }
 
@@ -49,32 +48,21 @@ class NouveautesSingle extends React.Component {
     })
       .then(response => response.json())
       .then(function(datasFromBack) {
-        //console.log(datasFromBack);
       });
   }
 
-  // componentDidMount() {
-  //   var that = this;
-  //   fetch("/findnuts")
-  //     .then(response => response.json())
-  //     .then(function(nuts) {
-  //       that.setState({
-  //         nutsFromDB: nuts
-  //       });
-  //     })
-  //     .catch(error => console.log("erreur fetch findnuts" + error));
-  // }
 
   render() {
     var nutIcon;
-    console.log(this.props.favIcon);
-    if (this.props.favIcon == true ) {
-      console.log("this.props.isFav est true");
-      nutIcon = <i className="lnr lnr-poop" onClick={this.delFav} />
+    var linkTo;
+    if (this.props.isLogged != undefined && this.props.isLogged != null && this.props.isLogged != "") {
+      linkTo = "/";
+      this.props.favIcon === true? nutIcon = <i className="lnr lnr-poop" onClick={this.delFav} /> : nutIcon = <i className="lnr lnr-heart" onClick={this.addFav} />;
     } else {
-      nutIcon = <i className="lnr lnr-heart" onClick={this.addFav} />
+      nutIcon = <i className="lnr lnr-lock" />;
+      linkTo = "/signuplogin";
     }
-     
+         
 
     return (
 
@@ -91,7 +79,7 @@ class NouveautesSingle extends React.Component {
             <Link to={this.props.link} className="view-btn">
               <i className="lnr lnr-eye" onClick={this.onClickMovetoSingle} />
             </Link>
-            <Link to="/" className="view-btn">
+            <Link to={linkTo} className="view-btn">
               {nutIcon}
             </Link>
           </div>
@@ -106,7 +94,9 @@ class NouveautesSingle extends React.Component {
   }
 }
 function mapStateToProps(state) {
-  return { nuts: state.nutSerie };
+  return { nuts: state.nutSerie,
+            isLogged: state.currentUser
+   };
 }
 
 function mapDispatchToProps(dispatch, props) {

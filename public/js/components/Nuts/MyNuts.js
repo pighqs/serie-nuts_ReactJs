@@ -8,28 +8,36 @@ class MyNuts extends React.Component {
   constructor() {
     super();
     this.state = {
-      favoriteShowsData: []
+      favoriteShowsData: [],
     };
   }
 
   componentDidMount() {
-    // verifie qu'il y ai au moins 1 item dans le store avant de faire requete
-    if (this.props.nuts.length) {
-      var that = this;
-      var nutsToFetch = this.props.nuts.join(); // transforme tableau en chaine de caracteres
-      var requete =
-        "https://api.betaseries.com/shows/display?key=d0c44a7cd167&id=" +
-        nutsToFetch;
-      fetch(requete)
-        .then(response => response.json())
-        .then(function(data) {
-          that.setState({
-            // vérifie type de réponse serveur
-            favoriteShowsData: data.show ? [data.show] : data.shows
-          });
-        })
-        .catch(error => console.log("erreur fetch MyNuts !!!" + error));
-    }
+    var that = this;
+    // fetch server -> DB retourne favoris
+    fetch("/findnuts")
+      .then(response => response.json())
+      .then(function(nuts) {
+        // verifie qu'il y ai au moins 1 item dans le store avant de faire requete
+        if (nuts) {
+          var nutsToFetch = nuts.join(); // transforme tableau en chaine de caracteres
+          var requete =
+            "https://api.betaseries.com/shows/display?key=d0c44a7cd167&id=" +
+            nutsToFetch;
+          // fetch series from betaseries (uniquement ids);
+          fetch(requete)
+            .then(response => response.json())
+            .then(function(data) {
+              that.setState({
+                favoriteShowsData: data.show ? [data.show] : data.shows
+              });
+            })
+            .catch(error => console.log("erreur fetch MyNuts !!!" + error));
+    
+        }
+      })
+      .catch(error => console.log("erreur fetch findnuts" + error));
+
   }
 
   render() {
@@ -64,7 +72,10 @@ class MyNuts extends React.Component {
 }
 
 function mapStateToProps(state) {
-  return { nuts: state.nutSerie };
+  return {
+    nuts: state.nutSerie,
+    isLogged: state.currentUser
+  };
 }
 
 var MyNutsRedux = connect(mapStateToProps, null)(MyNuts);
