@@ -18,7 +18,7 @@ class NouveautesList extends React.Component {
     var that = this;
     // fetch series from betaseries (classés par nb followers);
     fetch(
-      "https://api.betaseries.com/shows/list?key=d0c44a7cd167&order=followers&limit=60"
+      "https://api.betaseries.com/shows/list?key=d0c44a7cd167&order=followers&limit=90"
     )
       .then(response => response.json())
       .then(function(datas) {
@@ -60,7 +60,7 @@ class NouveautesList extends React.Component {
     var favs = this.state.favsFromDB;
     var poster;
 
-    this.state.returnSeriesFromAPI.length > 15
+    this.state.returnSeriesFromAPI.length > 80
       ? (lengthStateDatas = 15)
       : (lengthStateDatas = this.state.returnSeriesFromAPI.length);
 
@@ -91,7 +91,7 @@ class NouveautesList extends React.Component {
       }
       // si un filtre autre que "all est selectionné"  :
     } else {
-      for (var i = 0; i < 30; i++) {
+      for (var i = 0; i < 80; i++) {
         var genres = this.state.returnSeriesFromAPI[i].genres.map(x =>
           x.toLowerCase()
         );

@@ -19,7 +19,7 @@ class AffichageContact extends React.Component {
     formData.append("email", values.email);
     formData.append("message", values.message);
     formData.append("fullname", values.fullname);
-    fetch("http://localhost:8080/contact", {
+    fetch("/contact", {
       method: "post",
       body: formData
     })
