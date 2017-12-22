@@ -17,7 +17,7 @@ class SearchResultsList extends React.Component {
     var that = this;
     var limitResults = 30;
     var userSearch = this.props.userSearch.searchRequest;
-    
+
     fetch(
       "https://api.betaseries.com/shows/list?key=d0c44a7cd167&id=8847&order=followers&starting=" +
         userSearch
@@ -33,14 +33,27 @@ class SearchResultsList extends React.Component {
       );
 
     // fetch server -> DB retourne favoris
-    fetch("/findnuts")
-      .then(response => response.json())
-      .then(function(nuts) {
-        that.setState({
-          favsFromDB: nuts
-        });
+    if (
+      that.props.isLogged != undefined &&
+      that.props.isLogged != null &&
+      that.props.isLogged != ""
+    ) {
+      var userNuts = new FormData();
+      userNuts.append("user_id", that.props.isLogged);
+      fetch("/findnuts", {
+        method: "post",
+        body: userNuts
       })
-      .catch(error => console.log("erreur fetch findnuts" + error));
+        .then(response => response.json())
+        .then(function(nuts) {
+          that.setState({
+            favsFromDB: nuts
+          });
+        })
+        .catch(error =>
+          console.log("erreur fetch findnuts nouveautesList" + error)
+        );
+    }
   }
 
   render() {
@@ -55,7 +68,9 @@ class SearchResultsList extends React.Component {
 
     for (var i = 0; i < lengthStateDatas; i++) {
       var isFav;
-      poster = this.state.returnSeriesFromAPI[i].images.poster || "./images/default-poster.jpg";
+      poster =
+        this.state.returnSeriesFromAPI[i].images.poster ||
+        "./images/default-poster.jpg";
       if (favs.includes(this.state.returnSeriesFromAPI[i].id)) {
         isFav = true;
       } else {
@@ -89,7 +104,7 @@ class SearchResultsList extends React.Component {
 }
 
 function mapStateToProps(state) {
-  return { userSearch: state.searchRequest };
+  return { userSearch: state.searchRequest, isLogged: state.currentUser };
 }
 
 var SearchResultsListRedux = connect(mapStateToProps, null)(SearchResultsList);

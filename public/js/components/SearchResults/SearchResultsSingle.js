@@ -25,6 +25,7 @@ class SearchResultsSingle extends React.Component {
 
     var nut = new FormData();
     nut.append("nut_id", this.props.idserie);
+    nut.append("user_id", this.props.isLogged);
 
     fetch("/addfav", {
       method: "post",
@@ -41,6 +42,8 @@ class SearchResultsSingle extends React.Component {
 
     var nut = new FormData();
     nut.append("nut_id", this.props.idserie);
+    nut.append("user_id", this.props.isLogged);
+
 
     fetch("/delfav", {
       method: "post",
@@ -71,7 +74,7 @@ class SearchResultsSingle extends React.Component {
             <Link to={this.props.link} className="view-btn">
               <i className="lnr lnr-eye" onClick={this.onClickMovetoSingle} />
             </Link>
-            <Link to="/" className="view-btn">
+            <Link to="/searchresults" className="view-btn">
               {nutIcon}
             </Link>
           </div>
@@ -84,6 +87,11 @@ class SearchResultsSingle extends React.Component {
       </li>
     );
   }
+}
+function mapStateToProps(state) {
+  return { nuts: state.nutSerie,
+            isLogged: state.currentUser
+   };
 }
 
 function mapDispatchToProps(dispatch, props) {
@@ -100,7 +108,7 @@ function mapDispatchToProps(dispatch, props) {
   };
 }
 
-var SearchResultsSingleRedux = connect(null, mapDispatchToProps)(
+var SearchResultsSingleRedux = connect(mapStateToProps, mapDispatchToProps)(
   SearchResultsSingle
 );
 

@@ -35,7 +35,8 @@ mongoose.connect(
 
 // schemas
 var nutSchema = mongoose.Schema({
-  nutFromDB_id: Number
+  nutFromDB_id: Number,
+  likeByUser: String
 });
 var userSchema = mongoose.Schema({
   usermail: String,
@@ -47,19 +48,20 @@ var NutModel = mongoose.model("nuts", nutSchema);
 var UserModel = mongoose.model("users", userSchema);
 var users = [];
 
+
 app.get("/", function(req, res) {
   res.render("index");
 });
 
-app.get("/findnuts", function(req, res) {
+app.post("/findnuts", function(req, res) {
+
+
   var nutIDsFromDB = [];
-  NutModel.find(function(err, nuts) {
-    var nutFromDB;
+
+  NutModel.find({ likeByUser: req.body.user_id } ,function(err, nuts) {
     for (var i = 0; i < nuts.length; i++) {
-      nutIDfromDB = nuts[i].nutFromDB_id;
-      nutIDsFromDB.push(nutIDfromDB);
+      nutIDsFromDB.push(nuts[i].nutFromDB_id);
     }
-    //console.log(nutIDsFromDB);
     res.json(nutIDsFromDB);
   });
 });
@@ -68,7 +70,8 @@ app.post("/addfav", function(req, res) {
   // console.log('id reçu' + req.body.nut_id)
 
   var newNut = new NutModel({
-    nutFromDB_id: req.body.nut_id
+    nutFromDB_id: req.body.nut_id,
+    likeByUser: req.body.user_id
   });
 
   newNut.save(function(error, nut) {
@@ -82,10 +85,8 @@ app.post("/addfav", function(req, res) {
 });
 
 app.post("/delfav", function(req, res) {
-  // console.log('id reçu')
-  // console.log(req.body.nut_id)
 
-  NutModel.remove({ nutFromDB_id: req.body.nut_id }, function(error, nut) {
+  NutModel.remove({ nutFromDB_id: req.body.nut_id, likeByUser: req.body.user_id }, function(error, nut) {
     if (error) {
       console.log(error);
     } else {

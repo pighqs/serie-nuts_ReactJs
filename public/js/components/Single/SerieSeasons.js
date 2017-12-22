@@ -12,7 +12,7 @@ class SerieSeasons extends React.Component {
   renderSeasons() {
     var seasons = this.props.content;
     if (this.props.content) {
-      return seasons.map(season => <SerieSeasonsAccordion season={season} />);
+      return seasons.map((season, index) => <SerieSeasonsAccordion season={season} key={index} />);
     }
   }
 

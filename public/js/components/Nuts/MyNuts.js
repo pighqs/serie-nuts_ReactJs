@@ -13,14 +13,20 @@ class MyNuts extends React.Component {
   }
 
   componentDidMount() {
+    //console.log(this.props.isLogged);
     var that = this;
+    var userNuts = new FormData();
+    userNuts.append("user_id", this.props.isLogged);
     // fetch server -> DB retourne favoris
-    fetch("/findnuts")
+    fetch("/findnuts", {
+      method: "post",
+      body: userNuts
+    })
       .then(response => response.json())
       .then(function(nuts) {
         // verifie qu'il y ai au moins 1 item dans le store avant de faire requete
         if (nuts && nuts.length > 0) {
-          console.log(nuts);
+          //console.log(nuts);
           var nutsToFetch = nuts.join(); // transforme tableau en chaine de caracteres
           var requete =
             "https://api.betaseries.com/shows/display?key=d0c44a7cd167&id=" +
@@ -40,7 +46,6 @@ class MyNuts extends React.Component {
   }
 
   render() {
-    console.log(this.state.favoriteShowsData);
     // si favoriteShowsData est vide
     if (
       !this.state.favoriteShowsData ||

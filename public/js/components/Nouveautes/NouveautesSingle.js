@@ -23,8 +23,10 @@ class NouveautesSingle extends React.Component {
     var that = this;
     this.props.addFav(this.props.idserie);
 
+
     var nut = new FormData();
     nut.append("nut_id", this.props.idserie);
+    nut.append("user_id", this.props.isLogged);
 
     fetch("/addfav", {
       method: "post",
@@ -41,6 +43,8 @@ class NouveautesSingle extends React.Component {
 
     var nut = new FormData();
     nut.append("nut_id", this.props.idserie);
+    nut.append("user_id", this.props.isLogged);
+
 
     fetch("/delfav", {
       method: "post",
@@ -54,13 +58,19 @@ class NouveautesSingle extends React.Component {
 
   render() {
     var nutIcon;
-    var linkTo;
+    var singleIcon;
+    var linkToLike;
+    var linkToSingle;
     if (this.props.isLogged != undefined && this.props.isLogged != null && this.props.isLogged != "") {
-      linkTo = "/";
+      linkToLike = "/";
+      linkToSingle = this.props.link;
+      singleIcon = <i className="lnr lnr-eye" onClick={this.onClickMovetoSingle} />;
       this.props.favIcon === true? nutIcon = <i className="lnr lnr-poop" onClick={this.delFav} /> : nutIcon = <i className="lnr lnr-heart" onClick={this.addFav} />;
     } else {
       nutIcon = <i className="lnr lnr-lock" />;
-      linkTo = "/signuplogin";
+      singleIcon = <i className="lnr lnr-lock" />;
+      linkToLike = "/signuplogin";
+      linkToSingle = "/signuplogin";
     }
          
 
@@ -76,10 +86,10 @@ class NouveautesSingle extends React.Component {
           <img src={this.props.img} alt="" />
 
           <div className="project-hover-tools">
-            <Link to={this.props.link} className="view-btn">
-              <i className="lnr lnr-eye" onClick={this.onClickMovetoSingle} />
+            <Link to={linkToSingle} className="view-btn">
+              {singleIcon}
             </Link>
-            <Link to={linkTo} className="view-btn">
+            <Link to={linkToLike} className="view-btn">
               {nutIcon}
             </Link>
           </div>

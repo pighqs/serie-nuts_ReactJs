@@ -19,6 +19,7 @@ class MyNutsSingle extends React.Component {
 
     var nut = new FormData();
     nut.append("nut_id", this.props.idserie);
+    nut.append("user_id", this.props.isLogged);
 
     fetch("/delfav", {
       method: "post",
@@ -60,6 +61,13 @@ class MyNutsSingle extends React.Component {
   }
 }
 
+
+function mapStateToProps(state) {
+  return { nuts: state.nutSerie,
+            isLogged: state.currentUser
+   };
+}
+
 function mapDispatchToProps(dispatch, props) {
   return {
     onClickMovetoSingle: function(value) {
@@ -68,6 +76,6 @@ function mapDispatchToProps(dispatch, props) {
   };
 }
 
-var MyNutsSingleRedux = connect(null, mapDispatchToProps)(MyNutsSingle);
+var MyNutsSingleRedux = connect(mapStateToProps, mapDispatchToProps)(MyNutsSingle);
 
 export default MyNutsSingleRedux;
