@@ -78,7 +78,7 @@ app.post("/addfav", function(req, res) {
     if (error) {
       console.log(error);
     } else {
-      console.log("save nut in DB ok : " + nut);
+      //console.log("save nut in DB ok : " + nut);
       res.json(nut);
     }
   });
@@ -90,7 +90,7 @@ app.post("/delfav", function(req, res) {
     if (error) {
       console.log(error);
     } else {
-      console.log("remove nut from DB ok : " + nut);
+      //console.log("remove nut from DB ok : " + nut);
     res.json(nut);
     }
   });
@@ -135,7 +135,7 @@ app.post("/signup", function(req, res) {
         if (error) {
           console.log(error);
         } else {
-          console.log("save DB ok" + savedUser);
+          //console.log("save DB ok" + savedUser);
           res.json(savedUser);
         }
       });

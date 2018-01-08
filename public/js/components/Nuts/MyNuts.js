@@ -12,8 +12,23 @@ class MyNuts extends React.Component {
     };
   }
 
+  componentWillReceiveProps(nextProps) {
+    var that = this;
+    let newFavsMinusDel = nextProps.nuts.join();
+    var requete =
+            "https://api.betaseries.com/shows/display?key=d0c44a7cd167&id=" +
+            newFavsMinusDel;
+            fetch(requete)
+            .then(response => response.json())
+            .then(function(data) {
+              that.setState({
+                favoriteShowsData: data.show ? [data.show] : data.shows
+              });
+            })
+            .catch(error => console.log("erreur fetch MyNuts !!!" + error));
+  }
+
   componentDidMount() {
-    //console.log(this.props.isLogged);
     var that = this;
     var userNuts = new FormData();
     userNuts.append("user_id", this.props.isLogged);
@@ -71,6 +86,7 @@ class MyNuts extends React.Component {
                   link="/affichageseriesingle"
                   idserie={favoriteShow.id}
                   key={index}
+                  favsFromDB ={this.state.favoriteShowsData}
                 />
               ))}
               <li className="col-xs-6 col-md-4 shuffle_sizer" />

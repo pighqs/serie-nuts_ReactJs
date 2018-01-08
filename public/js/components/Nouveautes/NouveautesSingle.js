@@ -57,11 +57,11 @@ class NouveautesSingle extends React.Component {
       .then(response => response.json())
       .then(function(datasFromBack) {});
 
-    let favsFromDBplusNew = this.props.favsFromDB;
-    let indexFavToDel = favsFromDBplusNew.indexOf(this.props.idserie);
-    favsFromDBplusNew.splice(indexFavToDel, 1);
+    let favsFromDBminusNew = this.props.favsFromDB;
+    let indexFavToDel = favsFromDBminusNew.indexOf(this.props.idserie);
+    favsFromDBminusNew.splice(indexFavToDel, 1);
     this.setState({
-      favsFromDB: favsFromDBplusNew
+      favsFromDB: favsFromDBminusNew
     });
   }
 

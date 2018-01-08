@@ -7,6 +7,9 @@ class MyNutsSingle extends React.Component {
     super();
     this.onClickMovetoSingle = this.onClickMovetoSingle.bind(this);
     this.delFav = this.delFav.bind(this);
+    this.state = {
+      favsFromDB: []
+    };
   }
 
   onClickMovetoSingle() {
@@ -16,7 +19,7 @@ class MyNutsSingle extends React.Component {
 
   delFav() {
     var that = this;
-
+    this.props.delFav(this.props.idserie);
     var nut = new FormData();
     nut.append("nut_id", this.props.idserie);
     nut.append("user_id", this.props.isLogged);
@@ -29,6 +32,7 @@ class MyNutsSingle extends React.Component {
       .then(function(datasFromBack) {
         //console.log(datasFromBack);
       });
+
   }
 
   render() {
@@ -72,6 +76,9 @@ function mapDispatchToProps(dispatch, props) {
   return {
     onClickMovetoSingle: function(value) {
       dispatch({ type: "clickOnSingle", selectedSerie: value });
+    },
+    delFav: function(value) {
+      dispatch({ type: "delFromNuts", nutSerie: value });
     }
   };
 }

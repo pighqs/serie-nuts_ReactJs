@@ -84,8 +84,8 @@ class SearchResultsList extends React.Component {
           img={poster}
           link="/affichageseriesingle"
           idserie={this.state.returnSeriesFromAPI[i].id}
-          favIcon={isFav}
           key={i}
+          favsFromDB ={this.state.favsFromDB}
         />
       );
     }

@@ -10,7 +10,7 @@ class SearchResultsSingle extends React.Component {
     this.delFav = this.delFav.bind(this);
 
     this.state = {
-      nutsFromDB: []
+      favsFromDB: []
     };
   }
 
@@ -32,8 +32,13 @@ class SearchResultsSingle extends React.Component {
       body: nut
     })
       .then(response => response.json())
-      .then(function(datasFromBack) {
-      });
+      .then(function(datasFromBack) {});
+
+    let favsFromDBplusNew = this.props.favsFromDB;
+    favsFromDBplusNew.push(this.props.idserie);
+    this.setState({
+      favsFromDB: favsFromDBplusNew
+    });
   }
 
   delFav() {
@@ -44,21 +49,28 @@ class SearchResultsSingle extends React.Component {
     nut.append("nut_id", this.props.idserie);
     nut.append("user_id", this.props.isLogged);
 
-
     fetch("/delfav", {
       method: "post",
       body: nut
     })
       .then(response => response.json())
-      .then(function(datasFromBack) {
-      });
+      .then(function(datasFromBack) {});
+
+    let favsFromDBminusNew = this.props.favsFromDB;
+    let indexFavToDel = favsFromDBminusNew.indexOf(this.props.idserie);
+    favsFromDBminusNew.splice(indexFavToDel, 1);
+    this.setState({
+      favsFromDB: favsFromDBminusNew
+    });
   }
 
   render() {
     var nutIcon;
-    this.props.favIcon === true
-      ? (nutIcon = <i className="lnr lnr-poop" onClick={this.delFav} />)
-      : (nutIcon = <i className="lnr lnr-heart" onClick={this.addFav} />);
+    if (this.props.favsFromDB.includes(this.props.idserie)) {
+      nutIcon = <i className="lnr lnr-poop" onClick={this.delFav} />;
+    } else {
+      nutIcon = <i className="lnr lnr-heart" onClick={this.addFav} />;
+    }
 
     return (
       <li
@@ -89,9 +101,10 @@ class SearchResultsSingle extends React.Component {
   }
 }
 function mapStateToProps(state) {
-  return { nuts: state.nutSerie,
-            isLogged: state.currentUser
-   };
+  return {
+    nuts: state.nutSerie,
+    isLogged: state.currentUser
+  };
 }
 
 function mapDispatchToProps(dispatch, props) {
