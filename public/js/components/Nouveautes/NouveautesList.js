@@ -67,7 +67,7 @@ class NouveautesList extends React.Component {
     // si le filtre "all est selectionné" (par défaut) :
     if (filter === "all") {
       for (let i = 0; i < lengthStateDatas; i++) {
-        let isFav;
+        var isFav;
         poster =
           this.state.returnSeriesFromAPI[i].images.poster ||
           "./images/default-poster.jpg";
