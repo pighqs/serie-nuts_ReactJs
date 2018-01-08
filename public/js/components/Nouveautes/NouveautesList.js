@@ -18,7 +18,7 @@ class NouveautesList extends React.Component {
     const that = this;
     // fetch series from betaseries (classés par nb followers);
     fetch(
-      "https://api.betaseries.com/shows/list?key=d0c44a7cd167&order=followers&limit=90"
+      "https://api.betaseries.com/shows/list?key=d0c44a7cd167&order=followers&limit=200"
     )
       .then(response => response.json())
       .then(function(datas) {
