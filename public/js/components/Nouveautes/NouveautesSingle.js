@@ -10,7 +10,7 @@ class NouveautesSingle extends React.Component {
     this.delFav = this.delFav.bind(this);
 
     this.state = {
-      nutsFromDB: []
+      favsFromDB: []
     };
   }
 
@@ -21,8 +21,8 @@ class NouveautesSingle extends React.Component {
 
   addFav() {
     var that = this;
-    this.props.addFav(this.props.idserie);
 
+    this.props.addFav(this.props.idserie);
 
     var nut = new FormData();
     nut.append("nut_id", this.props.idserie);
@@ -33,8 +33,13 @@ class NouveautesSingle extends React.Component {
       body: nut
     })
       .then(response => response.json())
-      .then(function(datasFromBack) {
-      });
+      .then(function(datasFromBack) {});
+
+    let favsFromDBplusNew = this.props.favsFromDB;
+    favsFromDBplusNew.push(this.props.idserie);
+    this.setState({
+      favsFromDB: favsFromDBplusNew
+    });
   }
 
   delFav() {
@@ -45,37 +50,50 @@ class NouveautesSingle extends React.Component {
     nut.append("nut_id", this.props.idserie);
     nut.append("user_id", this.props.isLogged);
 
-
     fetch("/delfav", {
       method: "post",
       body: nut
     })
       .then(response => response.json())
-      .then(function(datasFromBack) {
-      });
-  }
+      .then(function(datasFromBack) {});
 
+    let favsFromDBplusNew = this.props.favsFromDB;
+    let indexFavToDel = favsFromDBplusNew.indexOf(this.props.idserie);
+    favsFromDBplusNew.splice(indexFavToDel, 1);
+    this.setState({
+      favsFromDB: favsFromDBplusNew
+    });
+  }
 
   render() {
     var nutIcon;
     var singleIcon;
     var linkToLike;
     var linkToSingle;
-    if (this.props.isLogged != undefined && this.props.isLogged != null && this.props.isLogged != "") {
+    if (
+      this.props.isLogged != undefined &&
+      this.props.isLogged != null &&
+      this.props.isLogged != ""
+    ) {
       linkToLike = "/";
       linkToSingle = this.props.link;
-      singleIcon = <i className="lnr lnr-eye" onClick={this.onClickMovetoSingle} />;
-      this.props.favIcon === true? nutIcon = <i className="lnr lnr-poop" onClick={this.delFav} /> : nutIcon = <i className="lnr lnr-heart" onClick={this.addFav} />;
+      singleIcon = (
+        <i className="lnr lnr-eye" onClick={this.onClickMovetoSingle} />
+      );
+
+      if (this.props.favsFromDB.includes(this.props.idserie)) {
+        nutIcon = <i className="lnr lnr-poop" onClick={this.delFav} />;
+      } else {
+        nutIcon = <i className="lnr lnr-heart" onClick={this.addFav} />;
+      }
     } else {
       nutIcon = <i className="lnr lnr-lock" />;
       singleIcon = <i className="lnr lnr-lock" />;
       linkToLike = "/signuplogin";
       linkToSingle = "/signuplogin";
     }
-         
 
     return (
-
       <li
         className="col-xs-6 col-md-4 project"
         data-groups="[&quot;illustration&quot;]"
@@ -104,9 +122,10 @@ class NouveautesSingle extends React.Component {
   }
 }
 function mapStateToProps(state) {
-  return { nuts: state.nutSerie,
-            isLogged: state.currentUser
-   };
+  return {
+    nuts: state.nutSerie,
+    isLogged: state.currentUser
+  };
 }
 
 function mapDispatchToProps(dispatch, props) {
@@ -123,6 +142,8 @@ function mapDispatchToProps(dispatch, props) {
   };
 }
 
-var NouveautesSingleRedux = connect(mapStateToProps, mapDispatchToProps)(NouveautesSingle);
+var NouveautesSingleRedux = connect(mapStateToProps, mapDispatchToProps)(
+  NouveautesSingle
+);
 
 export default NouveautesSingleRedux;

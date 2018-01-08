@@ -52,12 +52,13 @@ class NouveautesList extends React.Component {
     }
   }
 
+
   render() {
+
     let filter = this.props.activeFilter.activeFilter;
     let newSeries = [];
     let lengthStateDatas;
     let genres = "";
-    let favs = this.state.favsFromDB;
     let poster;
 
     this.state.returnSeriesFromAPI.length > 30
@@ -71,7 +72,7 @@ class NouveautesList extends React.Component {
         poster =
           this.state.returnSeriesFromAPI[i].images.poster ||
           "./images/default-poster.jpg";
-        if (favs.includes(this.state.returnSeriesFromAPI[i].id)) {
+        if (this.state.favsFromDB.includes(this.state.returnSeriesFromAPI[i].id)) {
           isFav = true;
         } else {
           isFav = false;
@@ -86,6 +87,7 @@ class NouveautesList extends React.Component {
             idserie={this.state.returnSeriesFromAPI[i].id}
             favIcon={isFav}
             key={i}
+            favsFromDB ={this.state.favsFromDB}
           />
         );
       }
@@ -102,7 +104,7 @@ class NouveautesList extends React.Component {
               poster =
                 this.state.returnSeriesFromAPI[i].images.poster ||
                 "./images/default-poster.jpg";
-              if (favs.includes(this.state.returnSeriesFromAPI[i].id)) {
+              if (this.state.favsFromDB.includes(this.state.returnSeriesFromAPI[i].id)) {
                 isFav = true;
               }
               newSeries.push(
@@ -112,8 +114,8 @@ class NouveautesList extends React.Component {
                   img={poster}
                   link="/affichageseriesingle"
                   idserie={this.state.returnSeriesFromAPI[i].id}
-                  favIcon={isFav}
                   key={i}
+                  favsFromDB ={this.state.favsFromDB}
                 />
               );
             }
@@ -133,7 +135,9 @@ class NouveautesList extends React.Component {
 }
 
 function mapStateToProps(state) {
-  return { activeFilter: state.activeFilter, isLogged: state.currentUser };
+  return { activeFilter: state.activeFilter, 
+           isLogged: state.currentUser,
+           nuts: state.nutSerie, };
 }
 
 const NouveautesListRedux = connect(mapStateToProps, null)(NouveautesList);
