@@ -15,7 +15,7 @@ class NouveautesList extends React.Component {
   }
 
   componentDidMount() {
-    var that = this;
+    const that = this;
     // fetch series from betaseries (classés par nb followers);
     fetch(
       "https://api.betaseries.com/shows/list?key=d0c44a7cd167&order=followers&limit=90"
@@ -34,7 +34,7 @@ class NouveautesList extends React.Component {
       that.props.isLogged != null &&
       that.props.isLogged != ""
     ) {
-      var userNuts = new FormData();
+      let userNuts = new FormData();
       userNuts.append("user_id", that.props.isLogged);
       fetch("/findnuts", {
         method: "post",
@@ -53,21 +53,21 @@ class NouveautesList extends React.Component {
   }
 
   render() {
-    var filter = this.props.activeFilter.activeFilter;
-    var newSeries = [];
-    var lengthStateDatas;
-    var genres = "";
-    var favs = this.state.favsFromDB;
-    var poster;
+    let filter = this.props.activeFilter.activeFilter;
+    let newSeries = [];
+    let lengthStateDatas;
+    let genres = "";
+    let favs = this.state.favsFromDB;
+    let poster;
 
-    this.state.returnSeriesFromAPI.length > 80
-      ? (lengthStateDatas = 15)
+    this.state.returnSeriesFromAPI.length > 30
+      ? (lengthStateDatas = 30)
       : (lengthStateDatas = this.state.returnSeriesFromAPI.length);
 
     // si le filtre "all est selectionné" (par défaut) :
     if (filter === "all") {
-      for (var i = 0; i < lengthStateDatas; i++) {
-        var isFav;
+      for (let i = 0; i < lengthStateDatas; i++) {
+        let isFav;
         poster =
           this.state.returnSeriesFromAPI[i].images.poster ||
           "./images/default-poster.jpg";
@@ -91,31 +91,37 @@ class NouveautesList extends React.Component {
       }
       // si un filtre autre que "all est selectionné"  :
     } else {
-      for (var i = 0; i < 80; i++) {
-        var genres = this.state.returnSeriesFromAPI[i].genres.map(x =>
-          x.toLowerCase()
-        );
-        if (genres.includes(filter)) {
-          poster =
-            this.state.returnSeriesFromAPI[i].images.poster ||
-            "./images/default-poster.jpg";
-          if (favs.includes(this.state.returnSeriesFromAPI[i].id)) {
-            isFav = true;
+      let j = 0;
+      for (let i = 0; i < this.state.returnSeriesFromAPI.length; i++) {
+        if (j < 30) {
+            let genres = this.state.returnSeriesFromAPI[i].genres.map(x =>
+              x.toLowerCase()
+            );
+            if (genres.includes(filter)) {
+              j++;
+              poster =
+                this.state.returnSeriesFromAPI[i].images.poster ||
+                "./images/default-poster.jpg";
+              if (favs.includes(this.state.returnSeriesFromAPI[i].id)) {
+                isFav = true;
+              }
+              newSeries.push(
+                <NouveautesSingle
+                  title={this.state.returnSeriesFromAPI[i].title}
+                  description={this.state.returnSeriesFromAPI[i].description}
+                  img={poster}
+                  link="/affichageseriesingle"
+                  idserie={this.state.returnSeriesFromAPI[i].id}
+                  favIcon={isFav}
+                  key={i}
+                />
+              );
+            }
           }
-          newSeries.push(
-            <NouveautesSingle
-              title={this.state.returnSeriesFromAPI[i].title}
-              description={this.state.returnSeriesFromAPI[i].description}
-              img={poster}
-              link="/affichageseriesingle"
-              idserie={this.state.returnSeriesFromAPI[i].id}
-              favIcon={isFav}
-              key={i}
-            />
-          );
-        }
+
       }
-    }
+      }
+    
 
     return (
       <ul className="row portfolio list-unstyled lightbox" id="grid">
@@ -130,6 +136,6 @@ function mapStateToProps(state) {
   return { activeFilter: state.activeFilter, isLogged: state.currentUser };
 }
 
-var NouveautesListRedux = connect(mapStateToProps, null)(NouveautesList);
+const NouveautesListRedux = connect(mapStateToProps, null)(NouveautesList);
 
 export default NouveautesListRedux;

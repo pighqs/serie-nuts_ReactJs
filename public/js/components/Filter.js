@@ -1,49 +1,49 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React from "react";
+import { Link } from "react-router-dom";
 
 import { connect } from "react-redux";
 
-
 class Filter extends React.Component {
+  constructor() {
+    super();
+    this.filterOnclick = this.filterOnclick.bind(this);
+    this.state = {
+      activeFilter: "all"
+    };
+  }
 
-    constructor() {
-        super();
-        this.filterOnclick = this.filterOnclick.bind(this);
-        this.state ={
-          activeFilter : "all"
-        } 
-    }
-
-    filterOnclick(e) {
-      this.props.filterOnclick(e.target.textContent.toLowerCase());
-      this.setState({
-        activeFilter: e.target.textContent.toLowerCase(),
-      });
-    }
+  filterOnclick(e) {
+    this.props.filterOnclick(e.target.textContent.toLowerCase());
+    this.setState({
+      activeFilter: e.target.textContent.toLowerCase()
+    });
+  }
 
   render() {
-    var categories = ["ALL", "DRAMA", "COMEDY", "ADVENTURE", "ROMANCE", "CRIME"];
+    var categories = [
+      "ALL",
+      "DRAMA",
+      "COMÉDIE",
+      "AVENTURE",
+      "ROMANCE",
+      "CRIME"
+    ];
     var filters = [];
     var classes;
     for (var i = 0; i < categories.length; i++) {
-      if(categories[i].toLowerCase() === this.state.activeFilter) {
+      if (categories[i].toLowerCase() === this.state.activeFilter) {
         classes = "filter active";
       } else {
         classes = "filter";
       }
       filters.push(
-      <li
-      className={classes}
-      onClick={this.filterOnclick}
-      key={i}>           
+        <li className={classes} onClick={this.filterOnclick} key={i}>
           {categories[i]}
-      </li>
+        </li>
       );
-      }
+    }
     return (
-        <ul className="portfolio-filter list-inline text-center">
-          {filters}
-        </ul>
+      <ul className="portfolio-filter list-inline text-center">{filters}</ul>
     );
   }
 }
