@@ -14,7 +14,7 @@ class NouveautesList extends React.Component {
     };
   }
 
-  componentDidMount() {
+  componentWillMount() {
     const that = this;
     // fetch series from betaseries (classés par nb followers);
     fetch(
