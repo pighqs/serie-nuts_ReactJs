@@ -20,6 +20,7 @@ class MyNutsSingle extends React.Component {
   delFav() {
     var that = this;
     this.props.delFav(this.props.idserie);
+
     var nut = new FormData();
     nut.append("nut_id", this.props.idserie);
     nut.append("user_id", this.props.isLogged);
@@ -65,11 +66,11 @@ class MyNutsSingle extends React.Component {
   }
 }
 
-
 function mapStateToProps(state) {
-  return { nuts: state.nutSerie,
-            isLogged: state.currentUser
-   };
+  return {
+    nuts: state.nutSerie,
+    isLogged: state.currentUser
+  };
 }
 
 function mapDispatchToProps(dispatch, props) {
@@ -83,6 +84,8 @@ function mapDispatchToProps(dispatch, props) {
   };
 }
 
-var MyNutsSingleRedux = connect(mapStateToProps, mapDispatchToProps)(MyNutsSingle);
+var MyNutsSingleRedux = connect(mapStateToProps, mapDispatchToProps)(
+  MyNutsSingle
+);
 
 export default MyNutsSingleRedux;

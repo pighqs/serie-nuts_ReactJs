@@ -11,6 +11,7 @@ function nutSerie(state = [], action) {
       return state;
     } else {
       newState.splice(indexToDel, 1);
+      console.log(newState);
       return newState;
     }
   } else {

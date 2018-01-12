@@ -61,6 +61,8 @@ class MyNuts extends React.Component {
   }
 
   render() {
+    console.log(this.state.favoriteShowsData);
+
     // si favoriteShowsData est vide
     if (
       !this.state.favoriteShowsData ||

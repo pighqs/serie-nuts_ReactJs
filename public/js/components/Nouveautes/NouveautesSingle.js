@@ -121,6 +121,7 @@ class NouveautesSingle extends React.Component {
     );
   }
 }
+
 function mapStateToProps(state) {
   return {
     nuts: state.nutSerie,
