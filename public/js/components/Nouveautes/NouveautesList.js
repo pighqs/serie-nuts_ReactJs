@@ -45,6 +45,7 @@ class NouveautesList extends React.Component {
           that.setState({
             favsFromDB: nuts
           });
+          that.props.checkFavs(nuts);
         })
         .catch(error =>
           console.log("erreur fetch findnuts nouveautesList" + error)
@@ -140,6 +141,14 @@ function mapStateToProps(state) {
            nuts: state.nutSerie, };
 }
 
-const NouveautesListRedux = connect(mapStateToProps, null)(NouveautesList);
+function mapDispatchToProps(dispatch, props) {
+  return {
+    checkFavs: function(value) {
+      dispatch({ type: "checkFavs", favsFromDB: value });
+    }
+  };
+}
+
+const NouveautesListRedux = connect(mapStateToProps, mapDispatchToProps)(NouveautesList);
 
 export default NouveautesListRedux;
