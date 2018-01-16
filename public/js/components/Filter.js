@@ -20,7 +20,7 @@ class Filter extends React.Component {
   }
 
   render() {
-    var categories = [
+    const categories = [
       "ALL",
       "DRAMA",
       "COMÉDIE",

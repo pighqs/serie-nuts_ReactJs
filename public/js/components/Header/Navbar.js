@@ -10,10 +10,12 @@ class Navbar extends React.Component {
     super(props);
     this.searchOnclick = this.searchOnclick.bind(this);
     this.linkOnclick = this.linkOnclick.bind(this);
+    this.showHideNav = this.showHideNav.bind(this);
 
     this.state = {
       searchIsON: false,
-      activeLink: "HOME"
+      activeLink: "HOME",
+      navIsVisible: false,
     };
   }
 
@@ -27,6 +29,13 @@ class Navbar extends React.Component {
     this.state.searchIsON === true
       ? this.setState({ searchIsON: false })
       : this.setState({ searchIsON: true });
+      
+  }
+
+  showHideNav() {
+    this.state.navIsVisible === true
+      ? this.setState({ navIsVisible: false })
+      : this.setState({ navIsVisible: true });
       
   }
 
@@ -78,28 +87,34 @@ class Navbar extends React.Component {
     this.state.searchIsON === true
     ? (searchForm = <SearchNavbar />)
     : (searchForm = <span />);
+
+    var mobileNavBarClassNames;
+    this.state.navIsVisible === true ? (mobileNavBarClassNames = "navbar-collapse collapse visible") : (mobileNavBarClassNames = "navbar-collapse collapse");
     
 
     return (
       <nav className="navbar navbar-default">
         <div className="container">
           <div className="navbar-header">
+
             <button
               type="button"
               className="navbar-toggle collapsed"
               data-toggle="collapse"
               data-target=".navbar-collapse"
+              onClick={this.showHideNav}
             >
               <span className="sr-only">Toggle navigation</span>
               <span className="icon-bar" />
               <span className="icon-bar" />
               <span className="icon-bar" />
             </button>
+
             <Link to="/" className="navbar-brand">
               <img src="images/peanut_gold.png" alt="logo" />
             </Link>
           </div>
-          <div className="navbar-collapse collapse">
+          <div className={mobileNavBarClassNames}>
             <ul className="nav navbar-nav menu-home">
               {linksNavbar}
               {searchForm}

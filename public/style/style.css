@@ -3546,6 +3546,11 @@ body.demo {
     border-color: transparent;
   }
 
+  .navbar-collapse.visible {
+    display: block;
+  }
+
+
   .navbar-default .navbar-nav .open .dropdown-menu > li > a {
     color: #111111;
   }
