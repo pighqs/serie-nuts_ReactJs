@@ -55,7 +55,6 @@ app.get("/", function(req, res) {
 
 app.post("/findnuts", function(req, res) {
 
-
   var nutIDsFromDB = [];
 
   NutModel.find({ likeByUser: req.body.user_id } ,function(err, nuts) {
@@ -67,7 +66,6 @@ app.post("/findnuts", function(req, res) {
 });
 
 app.post("/addfav", function(req, res) {
-  // console.log('id reçu' + req.body.nut_id)
 
   var newNut = new NutModel({
     nutFromDB_id: req.body.nut_id,
@@ -78,7 +76,6 @@ app.post("/addfav", function(req, res) {
     if (error) {
       console.log(error);
     } else {
-      //console.log("save nut in DB ok : " + nut);
       res.json(nut);
     }
   });
@@ -90,13 +87,16 @@ app.post("/delfav", function(req, res) {
     if (error) {
       console.log(error);
     } else {
-      //console.log("remove nut from DB ok : " + nut);
     res.json(nut);
     }
   });
 });
 
 app.post("/login", function(req, res) {
+  console.log(req.body.email);
+  console.log(req.body.password);
+  // attention la req retournée est une string, il faut tester "undefined"
+  
   var test = "ko";
   if (
     req.body.email != undefined &&
@@ -113,8 +113,7 @@ app.post("/login", function(req, res) {
           req.body.password == userlist[i].userpassword
         ) {
           test = userlist[i]._id;
-        } else {
-        }
+        } 
       }
       res.json(test);
     });
@@ -135,7 +134,6 @@ app.post("/signup", function(req, res) {
         if (error) {
           console.log(error);
         } else {
-          //console.log("save DB ok" + savedUser);
           res.json(savedUser);
         }
       });

@@ -26,6 +26,7 @@ const globalReducers = combineReducers({searchRequest, selectedSerie, activeFilt
 
 
 const store = createStore(globalReducers, {selectedSerie: "1161"} );
+console.log(store.getState());
 
 ReactDOM.render(
   <Provider store={store}>
