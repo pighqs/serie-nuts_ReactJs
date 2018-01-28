@@ -1,7 +1,6 @@
 import React from "react";
 import { Link, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
-
 import { FormControl } from "react-bootstrap";
 
 class SearchNavbar extends React.Component {
@@ -53,7 +52,7 @@ class SearchNavbar extends React.Component {
   }
 }
 
-function mapDispatchToProps(dispatch, props) {
+const mapDispatchToProps = (dispatch, props) => {
   return {
     onSearchClick: function(value) {
       //console.log(value);
@@ -62,6 +61,6 @@ function mapDispatchToProps(dispatch, props) {
   };
 }
 
-var SearchNavbarRedux = connect(null, mapDispatchToProps)(SearchNavbar);
+const SearchNavbarRedux = connect(null, mapDispatchToProps)(SearchNavbar);
 
 export default SearchNavbarRedux;

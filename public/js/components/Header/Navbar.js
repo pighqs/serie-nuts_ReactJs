@@ -21,7 +21,7 @@ class Navbar extends React.Component {
 
   linkOnclick(e) {
     this.props.linkOnclick(e.target.textContent.toLowerCase());
-    var value = e.target.textContent;
+    let value = e.target.textContent;
     this.setState({ activeLink: value });
   }
 
@@ -29,29 +29,27 @@ class Navbar extends React.Component {
     this.state.searchIsON === true
       ? this.setState({ searchIsON: false })
       : this.setState({ searchIsON: true });
-      
   }
 
   showHideNav() {
     this.state.navIsVisible === true
       ? this.setState({ navIsVisible: false })
       : this.setState({ navIsVisible: true });
-      
   }
 
 
   render() {
+    let linksNavbar = [];
+    let linkNavbar, classes;
+
     if (this.props.isLogged != undefined && this.props.isLogged != null && this.props.isLogged != "") {
     var linksNames = ["HOME", "MY NUTS", "ABOUT", "CONTACT", "LOGOUT", "SEARCH"];
     } else {
       var linksNames = ["HOME", "ABOUT", "CONTACT", "SIGNUPLOGIN"];
     }
-    var linksNavbar = [];
-    var linkNavbar;
-    var classes;
 
-    for (var i = 0; i < linksNames.length; i++) {
-      var isActive;
+    for (let i = 0; i < linksNames.length; i++) {
+      let isActive;
       this.props.activeLink.activeLink === undefined ? (isActive = this.props.activeLink):(isActive = this.props.activeLink.activeLink);
       if (isActive === linksNames[i].toLowerCase()) {
         classes = "link active";
@@ -83,12 +81,12 @@ class Navbar extends React.Component {
       linksNavbar.push(linkNavbar);
     }
     
-    var searchForm;
+    let searchForm;
     this.state.searchIsON === true
     ? (searchForm = <SearchNavbar />)
     : (searchForm = <span />);
 
-    var mobileNavBarClassNames;
+    let mobileNavBarClassNames;
     this.state.navIsVisible === true ? (mobileNavBarClassNames = "navbar-collapse collapse visible") : (mobileNavBarClassNames = "navbar-collapse collapse");
     
 
@@ -126,7 +124,7 @@ class Navbar extends React.Component {
   }
 }
 
-function mapDispatchToProps(dispatch, props) {
+const mapDispatchToProps = (dispatch, props) => {
   return {
     linkOnclick: function(value) {
       dispatch({ type: "link", activeLink: value });
@@ -134,11 +132,11 @@ function mapDispatchToProps(dispatch, props) {
   };
 }
 
-function mapStateToProps(state) {
+const mapStateToProps = (state) => {
   return { activeLink: state.activeLink, isLogged: state.currentUser };
 }
 
-var NavbarRedux = connect(mapStateToProps, mapDispatchToProps)(Navbar);
+const NavbarRedux = connect(mapStateToProps, mapDispatchToProps)(Navbar);
 
 
 export default NavbarRedux;
