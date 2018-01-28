@@ -14,21 +14,20 @@ class MyNuts extends React.Component {
 
   
   componentDidMount() {
-    var that = this;
-    var userNuts = new FormData();
+    let userNuts = new FormData();
     userNuts.append("user_id", this.props.isLogged);
     
     if (this.props.nuts && this.props.nuts.length > 0) {
       
-      var nutsToFetch = that.props.nuts.join(); // transforme tableau en chaine de caracteres
-      var requete =
+      let nutsToFetch = this.props.nuts.join(); // transforme tableau en chaine de caracteres
+      let requete =
       "https://api.betaseries.com/shows/display?key=d0c44a7cd167&id=" +
       nutsToFetch;
       // fetch series from betaseries (uniquement ids);
       fetch(requete)
       .then(response => response.json())
-      .then(function(data) {
-        that.setState({
+      .then((data) => {
+        this.setState({
           favoriteShowsData: data.show ? [data.show] : data.shows
         });
       })
@@ -37,15 +36,14 @@ class MyNuts extends React.Component {
   }
   
   componentWillReceiveProps(nextProps) {
-    var that = this;
     let newFavsMinusDel = nextProps.nuts.join();
-    var requete =
+    let requete =
             "https://api.betaseries.com/shows/display?key=d0c44a7cd167&id=" +
             newFavsMinusDel;
             fetch(requete)
             .then(response => response.json())
-            .then(function(data) {
-              that.setState({
+            .then((data) => {
+              this.setState({
                 favoriteShowsData: data.show ? [data.show] : data.shows
               });
             })
@@ -93,12 +91,12 @@ class MyNuts extends React.Component {
   }
 }
 
-function mapStateToProps(state) {
+const mapStateToProps = (state) => {
   return {
     nuts: state.nutSerie,
     isLogged: state.currentUser,
   };
 }
 
-var MyNutsRedux = connect(mapStateToProps, null)(MyNuts);
+const MyNutsRedux = connect(mapStateToProps, null)(MyNuts);
 export default MyNutsRedux;
