@@ -20,10 +20,9 @@ class SearchResultsSingle extends React.Component {
   }
 
   addFav() {
-    var that = this;
     this.props.addFav(this.props.idserie);
 
-    var nut = new FormData();
+    let nut = new FormData();
     nut.append("nut_id", this.props.idserie);
     nut.append("user_id", this.props.isLogged);
 
@@ -32,7 +31,7 @@ class SearchResultsSingle extends React.Component {
       body: nut
     })
       .then(response => response.json())
-      .then(function(datasFromBack) {});
+      .then((datasFromBack) => {});
 
     let favsFromDBplusNew = this.props.favsFromDB;
     favsFromDBplusNew.push(this.props.idserie);
@@ -42,10 +41,9 @@ class SearchResultsSingle extends React.Component {
   }
 
   delFav() {
-    var that = this;
     this.props.delFav(this.props.idserie);
 
-    var nut = new FormData();
+    let nut = new FormData();
     nut.append("nut_id", this.props.idserie);
     nut.append("user_id", this.props.isLogged);
 
@@ -54,7 +52,7 @@ class SearchResultsSingle extends React.Component {
       body: nut
     })
       .then(response => response.json())
-      .then(function(datasFromBack) {});
+      .then((datasFromBack) => {});
 
     let favsFromDBminusNew = this.props.favsFromDB;
     let indexFavToDel = favsFromDBminusNew.indexOf(this.props.idserie);
@@ -100,14 +98,15 @@ class SearchResultsSingle extends React.Component {
     );
   }
 }
-function mapStateToProps(state) {
+
+const mapStateToProps = (state) => {
   return {
     nuts: state.nutSerie,
     isLogged: state.currentUser
   };
 }
 
-function mapDispatchToProps(dispatch, props) {
+const mapDispatchToProps = (dispatch, props) => {
   return {
     onClickMovetoSingle: function(value) {
       dispatch({ type: "clickOnSingle", selectedSerie: value });
@@ -121,7 +120,7 @@ function mapDispatchToProps(dispatch, props) {
   };
 }
 
-var SearchResultsSingleRedux = connect(mapStateToProps, mapDispatchToProps)(
+const SearchResultsSingleRedux = connect(mapStateToProps, mapDispatchToProps)(
   SearchResultsSingle
 );
 
