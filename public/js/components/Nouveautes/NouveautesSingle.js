@@ -20,11 +20,9 @@ class NouveautesSingle extends React.Component {
   }
 
   addFav() {
-    var that = this;
-
     this.props.addFav(this.props.idserie);
 
-    var nut = new FormData();
+    let nut = new FormData();
     nut.append("nut_id", this.props.idserie);
     nut.append("user_id", this.props.isLogged);
 
@@ -33,7 +31,7 @@ class NouveautesSingle extends React.Component {
       body: nut
     })
       .then(response => response.json())
-      .then(function(datasFromBack) {});
+      .then((newFav) => {});
 
     let favsFromDBplusNew = this.props.favsFromDB;
     favsFromDBplusNew.push(this.props.idserie);
@@ -43,10 +41,9 @@ class NouveautesSingle extends React.Component {
   }
 
   delFav() {
-    var that = this;
     this.props.delFav(this.props.idserie);
 
-    var nut = new FormData();
+    let nut = new FormData();
     nut.append("nut_id", this.props.idserie);
     nut.append("user_id", this.props.isLogged);
 
@@ -55,7 +52,7 @@ class NouveautesSingle extends React.Component {
       body: nut
     })
       .then(response => response.json())
-      .then(function(datasFromBack) {});
+      .then((favDel) => {});
 
     let favsFromDBminusNew = this.props.favsFromDB;
     let indexFavToDel = favsFromDBminusNew.indexOf(this.props.idserie);
@@ -66,10 +63,7 @@ class NouveautesSingle extends React.Component {
   }
 
   render() {
-    var nutIcon;
-    var singleIcon;
-    var linkToLike;
-    var linkToSingle;
+    let nutIcon, singleIcon, linkToLike, linkToSingle;
     if (
       this.props.isLogged != undefined &&
       this.props.isLogged != null &&
@@ -122,14 +116,14 @@ class NouveautesSingle extends React.Component {
   }
 }
 
-function mapStateToProps(state) {
+const mapStateToProps = (state) => {
   return {
     nuts: state.nutSerie,
     isLogged: state.currentUser
   };
 }
 
-function mapDispatchToProps(dispatch, props) {
+const mapDispatchToProps = (dispatch, props) => {
   return {
     onClickMovetoSingle: function(value) {
       dispatch({ type: "clickOnSingle", selectedSerie: value });
@@ -143,7 +137,7 @@ function mapDispatchToProps(dispatch, props) {
   };
 }
 
-var NouveautesSingleRedux = connect(mapStateToProps, mapDispatchToProps)(
+const NouveautesSingleRedux = connect(mapStateToProps, mapDispatchToProps)(
   NouveautesSingle
 );
 

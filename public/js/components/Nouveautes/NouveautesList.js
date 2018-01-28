@@ -15,14 +15,13 @@ class NouveautesList extends React.Component {
   }
 
   componentWillMount() {
-    const that = this;
     // fetch series from betaseries (classés par nb followers);
     fetch(
       "https://api.betaseries.com/shows/list?key=d0c44a7cd167&order=followers&limit=200"
     )
       .then(response => response.json())
-      .then(function(datas) {
-        that.setState({
+      .then((datas) => {
+        this.setState({
           returnSeriesFromAPI: datas.shows
         });
       })
@@ -30,22 +29,22 @@ class NouveautesList extends React.Component {
 
     // fetch server -> DB retourne favoris
     if (
-      that.props.isLogged != undefined &&
-      that.props.isLogged != null &&
-      that.props.isLogged != ""
+      this.props.isLogged != undefined &&
+      this.props.isLogged != null &&
+      this.props.isLogged != ""
     ) {
       let userNuts = new FormData();
-      userNuts.append("user_id", that.props.isLogged);
+      userNuts.append("user_id", this.props.isLogged);
       fetch("/findnuts", {
         method: "post",
         body: userNuts
       })
         .then(response => response.json())
-        .then(function(nuts) {
-          that.setState({
+        .then((nuts) => {
+          this.setState({
             favsFromDB: nuts
           });
-          that.props.checkFavs(nuts);
+          this.props.checkFavs(nuts);
         })
         .catch(error =>
           console.log("erreur fetch findnuts nouveautesList" + error)
@@ -69,7 +68,7 @@ class NouveautesList extends React.Component {
     // si le filtre "all est selectionné" (par défaut) :
     if (filter === "all") {
       for (let i = 0; i < lengthStateDatas; i++) {
-        var isFav;
+        let isFav;
         poster =
           this.state.returnSeriesFromAPI[i].images.poster ||
           "./images/default-poster.jpg";
@@ -135,13 +134,13 @@ class NouveautesList extends React.Component {
   }
 }
 
-function mapStateToProps(state) {
+const mapStateToProps = (state)  => {
   return { activeFilter: state.activeFilter, 
            isLogged: state.currentUser,
            nuts: state.nutSerie, };
 }
 
-function mapDispatchToProps(dispatch, props) {
+const mapDispatchToProps = (dispatch, props) => {
   return {
     checkFavs: function(value) {
       dispatch({ type: "checkFavs", favsFromDB: value });
