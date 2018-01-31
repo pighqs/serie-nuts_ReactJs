@@ -1,9 +1,8 @@
-import React from "react";
+import React,{Component} from "react";
 import { Link } from "react-router-dom";
-
 import { connect } from "react-redux";
 
-class Filter extends React.Component {
+class Filter extends Component {
   constructor() {
     super();
     this.filterOnclick = this.filterOnclick.bind(this);
