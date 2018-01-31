@@ -2976,6 +2976,7 @@ table > thead > tr > th, table > thead > tr > td, table > tbody > tr > th, table
 }
 
 .input-group {
+  display:none;
   z-index:70;
   position: absolute;
   top: 15px;
@@ -4206,3 +4207,7 @@ body.demo {
 }
 /* End Min Widths */
 /* / End Media Screens */
+
+.hide {
+  display:none;
+} 

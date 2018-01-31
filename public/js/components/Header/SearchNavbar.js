@@ -30,7 +30,7 @@ class SearchNavbar extends React.Component {
       return <Redirect to="/searchresults" />;
     } else {
       return (
-        <div className="input-group">
+        <li className="input-group"> 
           <FormControl
             className="navbarSearchInput"
             type="text"
@@ -38,15 +38,13 @@ class SearchNavbar extends React.Component {
             placeholder="browse serie"
             onChange={this.onSearchInputChange}
           />
-          <span className="input-group-btn">
             <button
               className="btn btn-warning btn-pill"
               onClick={this.onSearchClick}
             >
               <i className="fa fa-search" />
             </button>
-          </span>
-        </div>
+        </li>
       );
     }
   }

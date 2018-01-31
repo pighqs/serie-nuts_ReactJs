@@ -2,7 +2,6 @@ import React from "react";
 import { Link, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 
-
 import SearchNavbar from "./SearchNavbar";
 
 class Navbar extends React.Component {
@@ -15,7 +14,7 @@ class Navbar extends React.Component {
     this.state = {
       searchIsON: false,
       activeLink: "HOME",
-      navIsVisible: false,
+      navIsVisible: false
     };
   }
 
@@ -37,41 +36,65 @@ class Navbar extends React.Component {
       : this.setState({ navIsVisible: true });
   }
 
-
   render() {
     let linksNavbar = [];
     let linkNavbar, classes;
 
-    if (this.props.isLogged != undefined && this.props.isLogged != null && this.props.isLogged != "") {
-    var linksNames = ["HOME", "MY NUTS", "ABOUT", "CONTACT", "LOGOUT", "SEARCH"];
+    if (
+      this.props.isLogged != undefined &&
+      this.props.isLogged != null &&
+      this.props.isLogged != ""
+    ) {
+      var linksNames = [
+        "HOME",
+        "MY NUTS",
+        "ABOUT",
+        "CONTACT",
+        "LOGOUT",
+        "SEARCH"
+      ];
     } else {
       var linksNames = ["HOME", "ABOUT", "CONTACT", "SIGNUPLOGIN"];
     }
 
     for (let i = 0; i < linksNames.length; i++) {
       let isActive;
-      this.props.activeLink.activeLink === undefined ? (isActive = this.props.activeLink):(isActive = this.props.activeLink.activeLink);
+      var newClassName;
+
+      if (this.state.searchIsON === true) {
+        newClassName = "hide";
+      } else {
+        newClassName = "show";
+      }
+
+      this.props.activeLink.activeLink === undefined
+        ? (isActive = this.props.activeLink)
+        : (isActive = this.props.activeLink.activeLink);
       if (isActive === linksNames[i].toLowerCase()) {
         classes = "link active";
+        classes = newClassName.concat(" link active");
+
       } else {
         classes = "link";
+        classes = newClassName.concat(" link");        
       }
-      
+
+
       if (linksNames[i] === "SEARCH") {
+        console.log(classes);
         linkNavbar = (
+
           <li className={classes} onClick={this.searchOnclick} key={i}>
             <Link to="/">{linksNames[i]}</Link>
           </li>
         );
-      } else if (linksNames[i] === "HOME"){
+      } else if (linksNames[i] === "HOME") {
         linkNavbar = (
           <li className={classes} onClick={this.linkOnclick} key={i}>
             <Link to="/">{linksNames[i]}</Link>
           </li>
         );
-      } 
-      
-      else {
+      } else {
         linkNavbar = (
           <li className={classes} onClick={this.linkOnclick} key={i}>
             <Link to={linksNames[i].toLowerCase()}>{linksNames[i]}</Link>
@@ -80,21 +103,21 @@ class Navbar extends React.Component {
       }
       linksNavbar.push(linkNavbar);
     }
-    
+
     let searchForm;
     this.state.searchIsON === true
-    ? (searchForm = <SearchNavbar />)
-    : (searchForm = <span />);
+      ? (searchForm = <SearchNavbar />)
+      : (searchForm = <span />);
 
     let mobileNavBarClassNames;
-    this.state.navIsVisible === true ? (mobileNavBarClassNames = "navbar-collapse collapse visible") : (mobileNavBarClassNames = "navbar-collapse collapse");
-    
+    this.state.navIsVisible === true
+      ? (mobileNavBarClassNames = "navbar-collapse collapse visible")
+      : (mobileNavBarClassNames = "navbar-collapse collapse");
 
     return (
       <nav className="navbar navbar-default">
         <div className="container">
           <div className="navbar-header">
-
             <button
               type="button"
               className="navbar-toggle collapsed"
@@ -130,13 +153,12 @@ const mapDispatchToProps = (dispatch, props) => {
       dispatch({ type: "link", activeLink: value });
     }
   };
-}
+};
 
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
   return { activeLink: state.activeLink, isLogged: state.currentUser };
-}
+};
 
 const NavbarRedux = connect(mapStateToProps, mapDispatchToProps)(Navbar);
-
 
 export default NavbarRedux;
