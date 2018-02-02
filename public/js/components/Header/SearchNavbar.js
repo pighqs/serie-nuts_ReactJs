@@ -17,8 +17,8 @@ class SearchNavbar extends React.Component {
   onSearchInputChange(e) {
     this.setState({ value: e.target.value });
   }
+
   onSearchClick() {
-    // envoie du state à fonction onSearchClick du container redux
     this.props.onSearchClick(this.state.value);
     this.setState({
       searchSubmit: true
@@ -30,7 +30,7 @@ class SearchNavbar extends React.Component {
       return <Redirect to="/searchresults" />;
     } else {
       return (
-        <li className="input-group"> 
+        <li className="input-group">
           <FormControl
             className="navbarSearchInput"
             type="text"
@@ -38,12 +38,12 @@ class SearchNavbar extends React.Component {
             placeholder="browse serie"
             onChange={this.onSearchInputChange}
           />
-            <button
-              className="btn btn-warning btn-pill"
-              onClick={this.onSearchClick}
-            >
-              <i className="fa fa-search" />
-            </button>
+          <button
+            className="btn btn-warning btn-pill"
+            onClick={this.onSearchClick}
+          >
+            <i className="fa fa-search" />
+          </button>
         </li>
       );
     }
@@ -53,11 +53,10 @@ class SearchNavbar extends React.Component {
 const mapDispatchToProps = (dispatch, props) => {
   return {
     onSearchClick: function(value) {
-      //console.log(value);
       dispatch({ type: "search", searchValue: value });
     }
   };
-}
+};
 
 const SearchNavbarRedux = connect(null, mapDispatchToProps)(SearchNavbar);
 

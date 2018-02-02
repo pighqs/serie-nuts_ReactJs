@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import SearchResultsSingle from "./SearchResultsSingle";
 
@@ -20,7 +20,7 @@ class SearchResultsList extends React.Component {
         userSearch
     )
       .then(response => response.json())
-      .then((datas) => {
+      .then(datas => {
         this.setState({
           returnSeriesFromAPI: datas.shows
         });
@@ -42,7 +42,7 @@ class SearchResultsList extends React.Component {
         body: userNuts
       })
         .then(response => response.json())
-        .then((nuts) => {
+        .then(nuts => {
           this.setState({
             favsFromDB: nuts
           });
@@ -54,56 +54,62 @@ class SearchResultsList extends React.Component {
   }
 
   render() {
-    let searchResults = [];
-    let lengthStateDatas;
-    let favs = this.state.favsFromDB;
-    let poster;
+    if (!this.props.userSearch.searchRequest) {
+      return <Redirect to="/" />;
+    } else {
+      let searchResults = [];
+      let lengthStateDatas;
+      let favs = this.state.favsFromDB;
+      let poster;
 
-    this.state.returnSeriesFromAPI.length > 30
-      ? (lengthStateDatas = 30)
-      : (lengthStateDatas = this.state.returnSeriesFromAPI.length);
+      this.state.returnSeriesFromAPI.length > 30
+        ? (lengthStateDatas = 30)
+        : (lengthStateDatas = this.state.returnSeriesFromAPI.length);
 
-    for (var i = 0; i < lengthStateDatas; i++) {
-      var isFav;
-      poster =
-        this.state.returnSeriesFromAPI[i].images.poster ||
-        "./images/default-poster.jpg";
-      if (favs.includes(this.state.returnSeriesFromAPI[i].id)) {
-        isFav = true;
-      } else {
-        isFav = false;
+      for (var i = 0; i < lengthStateDatas; i++) {
+        var isFav;
+        poster =
+          this.state.returnSeriesFromAPI[i].images.poster ||
+          "./images/default-poster.jpg";
+        if (favs.includes(this.state.returnSeriesFromAPI[i].id)) {
+          isFav = true;
+        } else {
+          isFav = false;
+        }
+
+        searchResults.push(
+          <SearchResultsSingle
+            title={this.state.returnSeriesFromAPI[i].title}
+            description={this.state.returnSeriesFromAPI[i].description}
+            img={poster}
+            link="/affichageseriesingle"
+            idserie={this.state.returnSeriesFromAPI[i].id}
+            key={i}
+            favsFromDB={this.state.favsFromDB}
+          />
+        );
       }
 
-      searchResults.push(
-        <SearchResultsSingle
-          title={this.state.returnSeriesFromAPI[i].title}
-          description={this.state.returnSeriesFromAPI[i].description}
-          img={poster}
-          link="/affichageseriesingle"
-          idserie={this.state.returnSeriesFromAPI[i].id}
-          key={i}
-          favsFromDB ={this.state.favsFromDB}
-        />
+      return (
+        <section id="portfolio">
+          <div className="container">
+            <ul className="row portfolio list-unstyled lightbox" id="grid">
+              {searchResults}
+              <li className="col-xs-6 col-md-4 shuffle_sizer" />
+            </ul>
+          </div>
+        </section>
       );
     }
-
-    return (
-      <section id="portfolio">
-        <div className="container">
-          <ul className="row portfolio list-unstyled lightbox" id="grid">
-            {searchResults}
-            <li className="col-xs-6 col-md-4 shuffle_sizer" />
-          </ul>
-        </div>
-      </section>
-    );
   }
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
   return { userSearch: state.searchRequest, isLogged: state.currentUser };
-}
+};
 
-const SearchResultsListRedux = connect(mapStateToProps, null)(SearchResultsList);
+const SearchResultsListRedux = connect(mapStateToProps, null)(
+  SearchResultsList
+);
 
 export default SearchResultsListRedux;

@@ -37,6 +37,7 @@ class Navbar extends React.Component {
   }
 
   render() {
+
     let linksNavbar = [];
     let linkNavbar, classes;
 
@@ -57,62 +58,62 @@ class Navbar extends React.Component {
       var linksNames = ["HOME", "ABOUT", "CONTACT", "SIGNUPLOGIN"];
     }
 
-    for (let i = 0; i < linksNames.length; i++) {
-      let isActive;
-      var newClassName;
-
-      if (this.state.searchIsON === true) {
-        newClassName = "hide";
-      } else {
-        newClassName = "show";
-      }
-
-      this.props.activeLink.activeLink === undefined
-        ? (isActive = this.props.activeLink)
-        : (isActive = this.props.activeLink.activeLink);
-      if (isActive === linksNames[i].toLowerCase()) {
-        classes = "link active";
-        classes = newClassName.concat(" link active");
-
-      } else {
-        classes = "link";
-        classes = newClassName.concat(" link");        
-      }
-
-
-      if (linksNames[i] === "SEARCH") {
-        console.log(classes);
-        linkNavbar = (
-
-          <li className={classes} onClick={this.searchOnclick} key={i}>
-            <Link to="/">{linksNames[i]}</Link>
-          </li>
-        );
-      } else if (linksNames[i] === "HOME") {
-        linkNavbar = (
-          <li className={classes} onClick={this.linkOnclick} key={i}>
-            <Link to="/">{linksNames[i]}</Link>
-          </li>
-        );
-      } else {
-        linkNavbar = (
-          <li className={classes} onClick={this.linkOnclick} key={i}>
-            <Link to={linksNames[i].toLowerCase()}>{linksNames[i]}</Link>
-          </li>
-        );
-      }
-      linksNavbar.push(linkNavbar);
-    }
-
-    let searchForm;
-    this.state.searchIsON === true
-      ? (searchForm = <SearchNavbar />)
-      : (searchForm = <span />);
-
     let mobileNavBarClassNames;
-    this.state.navIsVisible === true
-      ? (mobileNavBarClassNames = "navbar-collapse collapse visible")
-      : (mobileNavBarClassNames = "navbar-collapse collapse");
+      this.state.navIsVisible === true
+        ? (mobileNavBarClassNames = "navbar-collapse collapse visible")
+        : (mobileNavBarClassNames = "navbar-collapse collapse");
+
+
+    if (this.state.searchIsON === true) {
+      linksNavbar = <SearchNavbar />;
+
+    } else {
+
+      for (let i = 0; i < linksNames.length; i++) {
+        let isActive;
+        var newClassName;
+
+        if (this.state.searchIsON === true) {
+          newClassName = "hide";
+        } else {
+          newClassName = "show";
+        }
+
+        this.props.activeLink.activeLink === undefined
+          ? (isActive = this.props.activeLink)
+          : (isActive = this.props.activeLink.activeLink);
+        if (isActive === linksNames[i].toLowerCase()) {
+          classes = "link active";
+          classes = newClassName.concat(" link active");
+        } else {
+          classes = "link";
+          classes = newClassName.concat(" link");
+        }
+
+        if (linksNames[i] === "SEARCH") {
+          linkNavbar = (
+            <li className={classes} onClick={this.searchOnclick} key={i}>
+              <Link to="/">{linksNames[i]}</Link>
+            </li>
+          );
+        } else if (linksNames[i] === "HOME") {
+          linkNavbar = (
+            <li className={classes} onClick={this.linkOnclick} key={i}>
+              <Link to="/">{linksNames[i]}</Link>
+            </li>
+          );
+        } else {
+          linkNavbar = (
+            <li className={classes} onClick={this.linkOnclick} key={i}>
+              <Link to={linksNames[i].toLowerCase()}>{linksNames[i]}</Link>
+            </li>
+          );
+        }
+        linksNavbar.push(linkNavbar);
+      }
+
+      
+    }
 
     return (
       <nav className="navbar navbar-default">
@@ -136,10 +137,7 @@ class Navbar extends React.Component {
             </Link>
           </div>
           <div className={mobileNavBarClassNames}>
-            <ul className="nav navbar-nav menu-home">
-              {linksNavbar}
-              {searchForm}
-            </ul>
+            <ul className="nav navbar-nav menu-home">{linksNavbar}</ul>
           </div>
         </div>
       </nav>
