@@ -21,11 +21,11 @@ class Filter extends React.Component {
   render() {
     const categories = [
       "ALL",
-      "DRAMA",
-      "COMÉDIE",
       "AVENTURE",
-      "ROMANCE",
-      "CRIME"
+      "COMÉDIE",
+      "CRIME",
+      "DRAMA",
+      "ROMANCE"
     ];
     let filters = [];
     let classes;
