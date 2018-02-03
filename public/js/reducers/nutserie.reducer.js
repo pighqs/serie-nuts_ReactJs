@@ -1,5 +1,5 @@
 function nutSerie(state = [], action) {
-  var newState = state.concat();
+  let newState = state.concat();
 
   if (action.type === "addToNuts") {
     newState.push(action.nutSerie);
@@ -7,7 +7,7 @@ function nutSerie(state = [], action) {
     return newState;
     
   } else if (action.type === "delFromNuts") {
-    var indexToDel = newState.indexOf(action.nutSerie);
+    let indexToDel = newState.indexOf(action.nutSerie);
     if (indexToDel === -1) {
       return newState;
     } else {

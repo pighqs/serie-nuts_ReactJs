@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-var formReducer = require('redux-form').reducer;
+const formReducer = require('redux-form').reducer;
 
 
 //Initialisation de Redux

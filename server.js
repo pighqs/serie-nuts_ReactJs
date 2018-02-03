@@ -1,14 +1,14 @@
-var express = require("express");
-var app = express();
+const express = require("express");
+const app = express();
 
-var bodyParser = require("body-parser");
+const bodyParser = require("body-parser");
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-var fileUpload = require("express-fileupload");
+const fileUpload = require("express-fileupload");
 
-var Trello = require("trello");
-var trello = new Trello(
+const Trello = require("trello");
+const trello = new Trello(
   "9603bc7c9a3c59641cbd504787ab613e",
   "7df626b71b4cb849b6d1f70ef7dc890d72d1c84eb054cd4c6fb509fdc5981515"
 );
@@ -18,8 +18,8 @@ app.use(express.static("public"));
 app.use(fileUpload());
 
 //// CONNECTION DB MLAB
-var mongoose = require("mongoose");
-var options = { server: { socketOptions: { connectTimeoutMS: 30000 } } };
+const mongoose = require("mongoose");
+const options = { server: { socketOptions: { connectTimeoutMS: 30000 } } };
 
 mongoose.connect(
   "mongodb://cowboys:serienuts@ds121534.mlab.com:21534/serienuts",
@@ -34,19 +34,19 @@ mongoose.connect(
 );
 
 // schemas
-var nutSchema = mongoose.Schema({
+const nutSchema = mongoose.Schema({
   nutFromDB_id: Number,
   likeByUser: String
 });
-var userSchema = mongoose.Schema({
+const userSchema = mongoose.Schema({
   usermail: String,
   userpassword: String
 });
 
 // models
-var NutModel = mongoose.model("nuts", nutSchema);
-var UserModel = mongoose.model("users", userSchema);
-var users = [];
+const NutModel = mongoose.model("nuts", nutSchema);
+const UserModel = mongoose.model("users", userSchema);
+let users = [];
 
 
 app.get("/", function(req, res) {
@@ -55,10 +55,10 @@ app.get("/", function(req, res) {
 
 app.post("/findnuts", function(req, res) {
 
-  var nutIDsFromDB = [];
+  let nutIDsFromDB = [];
 
   NutModel.find({ likeByUser: req.body.user_id } ,function(err, nuts) {
-    for (var i = 0; i < nuts.length; i++) {
+    for (let i = 0; i < nuts.length; i++) {
       nutIDsFromDB.push(nuts[i].nutFromDB_id);
     }
     res.json(nutIDsFromDB);
@@ -67,7 +67,7 @@ app.post("/findnuts", function(req, res) {
 
 app.post("/addfav", function(req, res) {
 
-  var newNut = new NutModel({
+  let newNut = new NutModel({
     nutFromDB_id: req.body.nut_id,
     likeByUser: req.body.user_id
   });
@@ -97,7 +97,7 @@ app.post("/login", function(req, res) {
   console.log(req.body.password);
   // attention la req retournée est une string, il faut tester "undefined"
   
-  var test = "ko";
+  let test = "ko";
   if (
     req.body.email != undefined &&
     req.body.email != "undefined" &&
@@ -107,7 +107,7 @@ app.post("/login", function(req, res) {
     req.body.password != "undefined"
   ) {
     UserModel.find(function(err, userlist) {
-      for (var i = 0; i < userlist.length; i++) {
+      for (let i = 0; i < userlist.length; i++) {
         if (
           req.body.email == userlist[i].usermail &&
           req.body.password == userlist[i].userpassword
@@ -123,10 +123,10 @@ app.post("/login", function(req, res) {
 });
 
 app.post("/signup", function(req, res) {
-  var query = UserModel.findOne({ usermail: req.body.email });
+  const query = UserModel.findOne({ usermail: req.body.email });
   query.exec(function(error, checkexist) {
     if (checkexist == undefined) {
-      var newUser = new UserModel({
+      let newUser = new UserModel({
         usermail: req.body.email,
         userpassword: req.body.password
       });
@@ -186,7 +186,7 @@ app.get("/logout", function(req, res) {
   res.render("index");
 });
 
-var port = process.env["PORT"] || 8080;
+let port = process.env["PORT"] || 8080;
 
 app.listen(port, function() {
   console.log("Server listening on port 8080");

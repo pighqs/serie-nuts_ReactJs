@@ -59,7 +59,7 @@ class NouveautesList extends React.Component {
     let newSeries = [];
     let lengthStateDatas;
     let genres = "";
-    let poster;
+    let poster, isFav;
 
     this.state.returnSeriesFromAPI.length > 30
       ? (lengthStateDatas = 30)
@@ -68,10 +68,10 @@ class NouveautesList extends React.Component {
     // si le filtre "all est selectionné" (par défaut) :
     if (filter === "all") {
       for (let i = 0; i < lengthStateDatas; i++) {
-        var isFav;
         poster =
           this.state.returnSeriesFromAPI[i].images.poster ||
           "./images/default-poster.jpg";
+
         if (this.state.favsFromDB.includes(this.state.returnSeriesFromAPI[i].id)) {
           isFav = true;
         } else {

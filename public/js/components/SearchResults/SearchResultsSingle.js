@@ -63,7 +63,7 @@ class SearchResultsSingle extends React.Component {
   }
 
   render() {
-    var nutIcon;
+    let nutIcon;
     if (this.props.favsFromDB.includes(this.props.idserie)) {
       nutIcon = <i className="lnr lnr-poop" onClick={this.delFav} />;
     } else {

@@ -27,9 +27,9 @@ class Filter extends React.Component {
       "ROMANCE",
       "CRIME"
     ];
-    var filters = [];
-    var classes;
-    for (var i = 0; i < categories.length; i++) {
+    let filters = [];
+    let classes;
+    for (let i = 0; i < categories.length; i++) {
       if (categories[i].toLowerCase() === this.state.activeFilter) {
         classes = "filter active";
       } else {
@@ -58,6 +58,6 @@ function mapStateToProps(state) {
   return { activeFilter: state.activeFilter };
 }
 
-var FilterRedux = connect(mapStateToProps, mapDispatchToProps)(Filter);
+const FilterRedux = connect(mapStateToProps, mapDispatchToProps)(Filter);
 
 export default FilterRedux;

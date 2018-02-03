@@ -66,8 +66,8 @@ class SearchResultsList extends React.Component {
         ? (lengthStateDatas = 30)
         : (lengthStateDatas = this.state.returnSeriesFromAPI.length);
 
-      for (var i = 0; i < lengthStateDatas; i++) {
-        var isFav;
+      for (let i = 0; i < lengthStateDatas; i++) {
+        let isFav;
         poster =
           this.state.returnSeriesFromAPI[i].images.poster ||
           "./images/default-poster.jpg";

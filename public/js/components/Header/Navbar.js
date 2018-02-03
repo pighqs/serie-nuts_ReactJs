@@ -39,6 +39,7 @@ class Navbar extends React.Component {
   render() {
 
     let linksNavbar = [];
+    let linksNames = [];
     let linkNavbar, classes;
 
     if (
@@ -46,7 +47,7 @@ class Navbar extends React.Component {
       this.props.isLogged != null &&
       this.props.isLogged != ""
     ) {
-      var linksNames = [
+      linksNames = [
         "HOME",
         "MY NUTS",
         "ABOUT",
@@ -55,7 +56,7 @@ class Navbar extends React.Component {
         "SEARCH"
       ];
     } else {
-      var linksNames = ["HOME", "ABOUT", "CONTACT", "SIGNUPLOGIN"];
+      linksNames = ["HOME", "ABOUT", "CONTACT", "SIGNUPLOGIN"];
     }
 
     let mobileNavBarClassNames;
@@ -71,7 +72,7 @@ class Navbar extends React.Component {
 
       for (let i = 0; i < linksNames.length; i++) {
         let isActive;
-        var newClassName;
+        let newClassName;
 
         if (this.state.searchIsON === true) {
           newClassName = "hide";
