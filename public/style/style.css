@@ -1810,7 +1810,7 @@ table > thead > tr > th, table > thead > tr > td, table > tbody > tr > th, table
 }
 
 #header-banner.demo-1 {
-  background: url("../images/banner-bg.jpg") no-repeat;
+  background: url("../images/banner-bg-dark.jpg") no-repeat;
   background-size: cover;
   background-position: center;
   background-color: #cccccc;

@@ -46,7 +46,7 @@ class Filter extends React.Component {
     );
   }
 }
-function mapDispatchToProps(dispatch, props) {
+const mapDispatchToProps = (dispatch, props) => {
   return {
     filterOnclick: function(value) {
       dispatch({ type: "filter", activeFilter: value });
@@ -54,7 +54,7 @@ function mapDispatchToProps(dispatch, props) {
   };
 }
 
-function mapStateToProps(state) {
+const mapStateToProps = (state) => {
   return { activeFilter: state.activeFilter };
 }
 
