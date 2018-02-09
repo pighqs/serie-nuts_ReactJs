@@ -11,8 +11,7 @@ class Contact extends React.Component {
 
   render() {
     return (
-      <div>
-        <div id="page-content" className="container">
+        <div id="page-content" className="container min-vh">
           <div className="row">
             <div className="col-sm-4 contact-info text-center space-bottom">
               <div className="contact-icon">
@@ -116,7 +115,6 @@ class Contact extends React.Component {
             </div>
           </div>
         </div>
-      </div>
     );
   }
 }

@@ -77,11 +77,16 @@ class SignupLogin extends React.Component {
       return (
         <div>
           <Navbar />
-          <SignupForm buglog={this.state.signupError} onSubmit={this.submit} />
-          <LoginForm
-            buglog={this.state.loginError}
-            onSubmit={this.submitlogin}
-          />
+          <div className="min-vh">
+            <SignupForm
+              buglog={this.state.signupError}
+              onSubmit={this.submit}
+            />
+            <LoginForm
+              buglog={this.state.loginError}
+              onSubmit={this.submitlogin}
+            />
+          </div>
           <Footer />
         </div>
       );

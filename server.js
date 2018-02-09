@@ -5,6 +5,8 @@ const bodyParser = require("body-parser");
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
+const bcrypt = require("bcrypt");
+
 const fileUpload = require("express-fileupload");
 
 const Trello = require("trello");
@@ -48,16 +50,14 @@ const NutModel = mongoose.model("nuts", nutSchema);
 const UserModel = mongoose.model("users", userSchema);
 let users = [];
 
-
 app.get("/", function(req, res) {
   res.render("index");
 });
 
 app.post("/findnuts", function(req, res) {
-
   let nutIDsFromDB = [];
 
-  NutModel.find({ likeByUser: req.body.user_id } ,function(err, nuts) {
+  NutModel.find({ likeByUser: req.body.user_id }, function(err, nuts) {
     for (let i = 0; i < nuts.length; i++) {
       nutIDsFromDB.push(nuts[i].nutFromDB_id);
     }
@@ -66,7 +66,6 @@ app.post("/findnuts", function(req, res) {
 });
 
 app.post("/addfav", function(req, res) {
-
   let newNut = new NutModel({
     nutFromDB_id: req.body.nut_id,
     likeByUser: req.body.user_id
@@ -82,60 +81,60 @@ app.post("/addfav", function(req, res) {
 });
 
 app.post("/delfav", function(req, res) {
-
-  NutModel.remove({ nutFromDB_id: req.body.nut_id, likeByUser: req.body.user_id }, function(error, nut) {
-    if (error) {
-      console.log(error);
-    } else {
-    res.json(nut);
+  NutModel.remove(
+    { nutFromDB_id: req.body.nut_id, likeByUser: req.body.user_id },
+    function(error, nut) {
+      if (error) {
+        console.log(error);
+      } else {
+        res.json(nut);
+      }
     }
-  });
+  );
 });
 
 app.post("/login", function(req, res) {
-  console.log(req.body.email);
-  console.log(req.body.password);
   // attention la req retournée est une string, il faut tester "undefined"
-  
-  let test = "ko";
-  if (
-    req.body.email != undefined &&
-    req.body.email != "undefined" &&
-    req.body.email != "" &&
-    req.body.password != undefined &&
-    req.body.password != "" &&
-    req.body.password != "undefined"
-  ) {
-    UserModel.find(function(err, userlist) {
-      for (let i = 0; i < userlist.length; i++) {
-        if (
-          req.body.email == userlist[i].usermail &&
-          req.body.password == userlist[i].userpassword
-        ) {
-          test = userlist[i]._id;
-        } 
-      }
-      res.json(test);
-    });
-  } else {
-    res.json(test);
-  }
+  let testLogin = "ko";
+
+  UserModel.find({ usermail: req.body.email }, function(err, users) {
+    if (users.length > 0) {
+      bcrypt
+        .compare(req.body.password, users[0].userpassword)
+        .then(function(passwordsMatch) {
+          if (passwordsMatch) {
+            testLogin = users[0]._id;
+            res.json(testLogin);
+          }
+        })
+        .catch(function(error) {
+          console.log("error", error);
+          res.json(testLogin);
+        });
+    } else {
+      res.json(testLogin);
+    }
+  });
 });
 
 app.post("/signup", function(req, res) {
   const query = UserModel.findOne({ usermail: req.body.email });
   query.exec(function(error, checkexist) {
     if (checkexist == undefined) {
-      let newUser = new UserModel({
-        usermail: req.body.email,
-        userpassword: req.body.password
-      });
-      newUser.save(function(error, savedUser) {
-        if (error) {
-          console.log(error);
-        } else {
-          res.json(savedUser);
-        }
+      // hashage mdp
+      bcrypt.hash(req.body.password, 10).then(function(hashedPassword) {
+        // Store hash in your password DB.
+        let newUser = new UserModel({
+          usermail: req.body.email,
+          userpassword: hashedPassword
+        });
+        newUser.save(function(error, savedUser) {
+          if (error) {
+            console.log(error);
+          } else {
+            res.json(savedUser);
+          }
+        });
       });
     } else {
       res.json(error);
@@ -152,7 +151,6 @@ app.post("/contact", function(req, res) {
   );
   res.json("ok");
 });
-
 
 app.get("/home", function(req, res) {
   res.render("index");
