@@ -1,4 +1,4 @@
-function currentUser(state = "", action) {
+const currentUser = (state = "", action) => {
   if (action.type == "logged") {
     return action.currentUser;
   } else {

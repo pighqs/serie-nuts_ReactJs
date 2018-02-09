@@ -1,4 +1,4 @@
-function nutSerie(state = [], action) {
+const nutSerie = (state = [], action) => {
   let newState = state.concat();
 
   switch (action.type) {

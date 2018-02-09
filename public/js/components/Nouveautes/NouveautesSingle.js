@@ -17,6 +17,7 @@ class NouveautesSingle extends React.Component {
   onClickMovetoSingle() {
     // envoi du state à fonction onSearchClick du container redux
     this.props.onClickMovetoSingle(this.props.idserie);
+
   }
 
   addFav() {
@@ -88,7 +89,9 @@ class NouveautesSingle extends React.Component {
     }
 
     return (
-      <li
+      
+      <li 
+    
         className="col-xs-6 col-md-4 project"
         data-groups="[&quot;illustration&quot;]"
       >

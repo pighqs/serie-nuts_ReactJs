@@ -25,8 +25,7 @@ import currentUser from './js/reducers/currentUser.reducer';
 const globalReducers = combineReducers({searchRequest, selectedSerie, activeFilter, activeLink, nutSerie, currentUser, form: formReducer});
 
 
-const store = createStore(globalReducers, {selectedSerie: "1161"} );
-console.log(store.getState());
+const store = createStore(globalReducers, {selectedSerie: ""} );
 
 ReactDOM.render(
   <Provider store={store}>

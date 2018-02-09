@@ -1,4 +1,4 @@
-function activeLink(state= {activeLink:"home"}, action) {
+const activeLink = (state= {activeLink:"home"}, action) => {
     
     if (action.type == "link") {
       return action.activeLink;
