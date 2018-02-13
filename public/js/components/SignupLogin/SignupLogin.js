@@ -28,16 +28,16 @@ class SignupLogin extends React.Component {
       body: formData
     })
       .then(response => response.json())
-      .then(function(datas) {
-        if (datas === null) {
+      .then(function(savedUser) {
+        if (savedUser === null) {
           ctx.setState({
             signupError: true
           });
         } else {
           ctx.setState({
-            currentUser: datas._id
+            currentUser: savedUser._id
           });
-          ctx.props.userlogged(datas);
+          ctx.props.userlogged(savedUser._id);
         }
       });
   }
@@ -52,16 +52,16 @@ class SignupLogin extends React.Component {
       body: formData
     })
       .then(response => response.json())
-      .then(function(datas) {
-        if (datas === "ko") {
+      .then(function(testLogin) {
+        if (testLogin === "ko") {
           ctx.setState({
             loginError: true
           });
         } else {
           ctx.setState({
-            currentUser: datas
+            currentUser: testLogin
           });
-          ctx.props.userlogged(datas);
+          ctx.props.userlogged(testLogin);
         }
       });
   }

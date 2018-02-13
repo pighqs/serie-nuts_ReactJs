@@ -14,6 +14,7 @@ class MyNuts extends React.Component {
 
   
   componentDidMount() {
+    console.log("this.props.isLogged :", this.props.isLogged);
     let userNuts = new FormData();
     userNuts.append("user_id", this.props.isLogged);
     

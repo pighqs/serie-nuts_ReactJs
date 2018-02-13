@@ -1,13 +1,30 @@
+// Express
 const express = require("express");
 const app = express();
+app.set("view engine", "ejs");
+app.use(express.static("public"));
 
+// BodyParser
 const bodyParser = require("body-parser");
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
+// Session
+const session = require("express-session");
+app.use(
+  session({
+    secret: "a4f8071f-c873-4447-8ee2",
+    resave: false,
+    saveUninitialized: false
+  })
+);
+
+// Bcrypt
 const bcrypt = require("bcrypt");
 
+// Trello
 const fileUpload = require("express-fileupload");
+app.use(fileUpload());
 
 const Trello = require("trello");
 const trello = new Trello(
@@ -15,11 +32,7 @@ const trello = new Trello(
   "7df626b71b4cb849b6d1f70ef7dc890d72d1c84eb054cd4c6fb509fdc5981515"
 );
 
-app.set("view engine", "ejs");
-app.use(express.static("public"));
-app.use(fileUpload());
-
-//// CONNECTION DB MLAB
+////////////// CONNECTION DB MLAB /////////////////////
 const mongoose = require("mongoose");
 const options = { server: { socketOptions: { connectTimeoutMS: 30000 } } };
 
@@ -50,9 +63,12 @@ const NutModel = mongoose.model("nuts", nutSchema);
 const UserModel = mongoose.model("users", userSchema);
 let users = [];
 
+//////////////////////////////////////////////////////
+
 app.get("/", function(req, res) {
   res.render("index");
 });
+
 
 app.post("/findnuts", function(req, res) {
   let nutIDsFromDB = [];
@@ -97,13 +113,17 @@ app.post("/login", function(req, res) {
   // attention la req retournée est une string, il faut tester "undefined"
   let testLogin = "ko";
 
-  UserModel.find({ usermail: req.body.email }, function(err, users) {
-    if (users.length > 0) {
+  UserModel.findOne({ usermail: req.body.email }, function(err, user) {
+    req.session.user = user;
+    if (user) {
       bcrypt
-        .compare(req.body.password, users[0].userpassword)
+        .compare(req.body.password, user.userpassword)
         .then(function(passwordsMatch) {
           if (passwordsMatch) {
-            testLogin = users[0]._id;
+            req.session.user = user;
+            req.session.userID = user._id;
+            res.json(req.session.userID);
+          } else {
             res.json(testLogin);
           }
         })
@@ -119,8 +139,8 @@ app.post("/login", function(req, res) {
 
 app.post("/signup", function(req, res) {
   const query = UserModel.findOne({ usermail: req.body.email });
-  query.exec(function(error, checkexist) {
-    if (checkexist == undefined) {
+  query.exec(function(error, mailAlreadyExistsInDB) {
+    if (!mailAlreadyExistsInDB) {
       // hashage mdp
       bcrypt.hash(req.body.password, 10).then(function(hashedPassword) {
         // Store hash in your password DB.
@@ -132,7 +152,8 @@ app.post("/signup", function(req, res) {
           if (error) {
             console.log(error);
           } else {
-            res.json(savedUser);
+            req.session.user = savedUser;
+            res.json(req.session.user);
           }
         });
       });
@@ -181,7 +202,7 @@ app.get("/signuplogin", function(req, res) {
 });
 
 app.get("/logout", function(req, res) {
-  res.render("index");
+  
 });
 
 let port = process.env["PORT"] || 8080;
